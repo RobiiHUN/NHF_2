@@ -2,9 +2,6 @@
 #include "back_data.h"
 
 
-/* ----------------- Ezzel a 'debug' modot tudjuk kapcsolni ----------------- */
-#define DEBUG = FALSE;
-/* -------------------------------------------------------------------------- */
 
 
 
