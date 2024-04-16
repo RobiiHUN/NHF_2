@@ -7,7 +7,7 @@
     /*                               opt+ shift + 0                               */
     /* -------------------------------------------------------------------------- */
 
-
+#include "base.h";
 
 
 
@@ -23,9 +23,9 @@ class Ember{
             size_t len_kereszt;     // nev hossza
             char *becenev;          //nev eltarolasa din. tombben
             size_t len_bece;        // nev hossza
-            unsigned int varos;     // iranyitoszam
         
         public:
+            Ember(): vezeteknev(NULL), len_vez(0), keresztnev(NULL), len_kereszt(0), becenev(NULL), len_bece(0){if(DEBUG)std::cout<<"Ember ctor"<<std::endl;};
 
 };
 
