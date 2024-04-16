@@ -22,6 +22,7 @@ size_t l_bece = 5;
 //Ember teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece);
 //Telefon(12, 21);
 //Telefon tel;
+Bejegyzes be(1, 32);
 
 
 
