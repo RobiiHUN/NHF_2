@@ -1,25 +1,42 @@
-
-/* ------------------------------ EZ MEG JO IS ------------------------------ */
-class Number{
-    int business;
-    int personal;
-
-    public:
-        Number(): business(203952740), personal(20312821){}    
-        int getBusiness()const{return business;}
-        int getPersonal()const {return personal;}
+    /* -------------------------------------------------------------------------- */ // control + shift + Y
+    
+    /* --------------------------- option + shift + - --------------------------- */
+    
+    
+    /* -------------------------------------------------------------------------- */
+    /*                               opt+ shift + 0                               */
+    /* -------------------------------------------------------------------------- */
 
 
-};
 
 
-/* ------------------------- CSAK A TESZT MIATT VAN ------------------------- */
-class Date
-{
-    private:
-        int a;
-    public:
-        Date(): a(10){};
-        int getDate()const{return a;}
+
+/* -------------------------------------------------------------------------- */
+/*                                 EMBER CLASS                                */
+/* -------------------------------------------------------------------------- */
+
+class Ember{
+        private:
+            char *vezeteknev;       //nev eltarolasa din. tombben
+            size_t len_vez;         // nev hossza
+            char *keresztnev;       //nev eltarolasa din. tombben
+            size_t len_kereszt;     // nev hossza
+            char *becenev;          //nev eltarolasa din. tombben
+            size_t len_bece;        // nev hossza
+            unsigned int varos;     // iranyitoszam
         
+        public:
+
 };
+
+class Szolgaltatas{
+        private:
+            unsigned long int szemelyes;        // sajat tellszam
+            unsigned long int business;         // ceges tellszam
+            unsigned long int elofizetes;       // elofizetes havidijja
+        
+        public:
+
+            
+};
+
