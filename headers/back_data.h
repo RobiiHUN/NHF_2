@@ -29,14 +29,16 @@ class Ember{
 
 };
 
-class Szolgaltatas{
+/* -------------------------------------------------------------------------- */
+/*                                TELEFON CLASS                               */
+/* -------------------------------------------------------------------------- */
+
+class Telefon: public Ember{
         private:
             unsigned long int szemelyes;        // sajat tellszam
             unsigned long int business;         // ceges tellszam
-            unsigned long int elofizetes;       // elofizetes havidijja
         
         public:
 
-            
 };
 

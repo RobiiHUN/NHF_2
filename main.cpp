@@ -5,6 +5,5 @@
 
 
 int main(){
-    Data telszam;
-    std::cout<<telszam.getDate();
+
 }
