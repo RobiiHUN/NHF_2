@@ -19,13 +19,15 @@ size_t l_bece = 5;
 
 
 //Ember test;
-Ember teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece);
-//Telefon(12, 21);
-//Telefon tel;
+//Ember teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece);
+//Telefon teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece, 120121020201, 21);
+//Telefon teszt;
 //Bejegyzes be(1, 32);
-
-std::cout<< teszt.getVezetek() <<" " <<teszt.getKereszt() <<std::endl;
-
+Bejegyzes teszt;
+Bejegyzes nane(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece, 120121020201, 012321, 4355, 5000);
+//std::cout<< teszt.getVezetek() <<" " <<teszt.getKereszt() <<" " <<   teszt.getSzemTell() <<std::endl;
+//std::cout << teszt.getSzemTell();
+bejegyzesKi(nane);
 
 
 return 0;
