@@ -15,6 +15,7 @@
 
 
 #include <iostream>
+#include "back_data.cpp"
 
 
 /* ----------------- Ezzel a 'debug' modot tudjuk kapcsolni ----------------- */
@@ -38,12 +39,12 @@
 class Ember{
         private:
             
-            char *vezeteknev;       //nev eltarolasa din. tombben
-            size_t len_vez;         // nev hossza
-            char *keresztnev;       //nev eltarolasa din. tombben
-            size_t len_kereszt;     // nev hossza
-            char *becenev;          //nev eltarolasa din. tombben
-            size_t len_bece;        // nev hossza
+            char *vezeteknev;       //* nev eltarolasa din. tombben
+            size_t len_vez;         //* nev hossza
+            char *keresztnev;       //* nev eltarolasa din. tombben
+            size_t len_kereszt;     //* nev hossza
+            char *becenev;          //* nev eltarolasa din. tombben
+            size_t len_bece;        //* nev hossza
         
         public:
 
@@ -60,13 +61,21 @@ class Ember{
                 }
 
             /* -------------------------------- DESTRUKTOR ------------------------------ */
-            ~Ember(){
-                delete[] vezeteknev;
-                delete[] keresztnev;
-                delete[] becenev;
+            ~Ember(){ //TODO ezzel mi van?
+                ////delete[] vezeteknev;
+                ////delete[] keresztnev;
+                ////delete[] becenev;
                 if (DEBUG) std::cout<<"Ember dtor"<<std::endl;
 
             }
+
+            /* -------------------------------- GETTEREK -------------------------------- */
+            char* getVezetek()const{return vezeteknev;}      //* visszaadja a vezeteknevet
+            size_t getLenVez()const{return len_vez;}         //* visszaadja a vezeteknev hosszat
+            char* getKereszt()const{return keresztnev;}      //* visszaadja a keresztnevet
+            size_t getLenKer()const{return len_kereszt;}     //* visszaadja a keresztnev hosszat
+            char* getBece()const{return becenev;}            //* visszaadja a becenevet
+            size_t getLenBece()const{return len_bece;}       //* visszaadja a becenev hosszat
 };
 
 /* ========================================================================== */
@@ -76,8 +85,8 @@ class Ember{
 class Telefon: public Ember{
         private:
 
-            unsigned long int szemelyes;        // sajat tellszam   (11 szam, alapeset: TELL_ALAP)
-            unsigned long int business;         // ceges tellszam   (11 szam, alapeset: TELL_ALAP)
+            unsigned long int szemelyes;        //* sajat tellszam   (11 szam, alapeset: TELL_ALAP)
+            unsigned long int business;         //* ceges tellszam   (11 szam, alapeset: TELL_ALAP)
         
         public:
 
@@ -94,6 +103,9 @@ class Telefon: public Ember{
 
            /* ------------------------------- DESTRUKTOR ------------------------------- */
             ~Telefon(){if (DEBUG) std::cout<<"Telefon dtor"<<std::endl;}
-
+ 
+           /* -------------------------------- GETTEREK -------------------------------- */
+           unsigned long int getSzemTell()const{return szemelyes;}      //* visszaadja a szemelyes telefonszamot
+           unsigned long int getCegesTell()const{return business;}      //* visszaada a ceges telefonszamot
 };
 

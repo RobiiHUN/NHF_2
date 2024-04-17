@@ -19,10 +19,12 @@ size_t l_bece = 5;
 
 
 //Ember test;
-//Ember teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece);
+Ember teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece);
 //Telefon(12, 21);
 //Telefon tel;
-Bejegyzes be(1, 32);
+//Bejegyzes be(1, 32);
+
+std::cout<< teszt.getVezetek() <<" " <<teszt.getKereszt() <<std::endl;
 
 
 

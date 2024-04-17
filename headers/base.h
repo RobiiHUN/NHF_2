@@ -27,5 +27,7 @@ class Bejegyzes: public Telefon{
             /* ------------------------------- DESTRUKTOR ------------------------------- */
             ~Bejegyzes(){if (DEBUG) std::cout<<"Bejegyzes dtor"<<std::endl;}
 
-
+            /* -------------------------------- GETTEREK -------------------------------- */
+            unsigned int getVaros()const{return varos;}     //* visszaadja a varos iranyito szamat
+            unsigned int getHavi() const{return havi_dij;}  //* visszaadja a havi dijjat
 };
