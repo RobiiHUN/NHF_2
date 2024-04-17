@@ -1,4 +1,5 @@
 #include "back_data.h"
+#include <iomanip>
 
 
 
@@ -37,4 +38,12 @@ class Bejegyzes: public Telefon{
 void bejegyzesKi(Bejegyzes& be){
     std::cout << be.getVezetek() << " "  << be.getKereszt() << " " << be.getVaros() << " " << be.getBece() << " " 
             <<"+" << be.getSzemTell() << " " << "+" << be.getCegesTell() << " " << be.getHavi(); 
+}
+
+void header(){
+    
+
+    std::cout << std::setw(10) << "Oszlop 1" << std::setw(10) << "Oszlop 2" << std::setw(10) << "Oszlop 3"
+              << std::setw(10) << "Oszlop 4" << std::setw(10) << "Oszlop 5" << std::setw(10) << "Oszlop 6"
+              << std::setw(10) << "Oszlop 7" << std::endl; 
 }
