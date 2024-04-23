@@ -7,8 +7,8 @@
 int main(){
         /* ----------------------------- TESTELESHEZ JO ----------------------------- */
 
-Ember emb;
-char vezeteknev[] = "Test";
+Bejegyzes valami;
+char vezeteknev1[] = "Test";
 size_t l_vez = 5;
 char keresztnev[] = "Kalapacs";
 size_t l_ker = 9;
@@ -17,18 +17,16 @@ size_t l_bece = 5;
 
         /* -------------------------------------------------------------------------- */
 
+Ember teszt(vezeteknev1, l_vez, keresztnev, l_ker, becenev, l_bece);            //! ember konstruktor
+Telefon teszt2(120121020201, 21);                                               //! telefon konstruktor
 
-//Ember test;
-//Ember teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece);
-//Telefon teszt(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece, 120121020201, 21);
-//Telefon teszt;
-//Bejegyzes be(1, 32);
-Bejegyzes teszt;
-Bejegyzes nane(vezeteknev, l_vez, keresztnev, l_ker, becenev, l_bece, 36203952740, 36203189001, 4355, 5000);
-//std::cout<< teszt.getVezetek() <<" " <<teszt.getKereszt() <<" " <<   teszt.getSzemTell() <<std::endl;
-//std::cout << teszt.getSzemTell();
+
+
+
 header();
-bejegyzesKi(nane);
+Bejegyzes teszt3(teszt, teszt2, 4355, 5000);                               //! bejegyzes konstruktor
+bejegyzesKi(teszt3);
+bejegyzesKi(valami);
 
 
 return 0;

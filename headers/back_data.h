@@ -57,7 +57,7 @@ class Ember{
 
 
             /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
-            Ember(): vezeteknev("N/A"), len_vez(0), keresztnev("N/A"), len_kereszt(0), becenev("N/A"), len_bece(0){
+            Ember(): vezeteknev("N/A"), len_vez(3), keresztnev("N/A"), len_kereszt(3), becenev("N/A"), len_bece(3){
                 if (DEBUG) std::cout<<"Ember ctor"<<std::endl;
             }
             
@@ -89,7 +89,7 @@ class Ember{
 //!                               TELEFON CLASS                              !//
 /* ========================================================================== */
 
-class Telefon: public Ember{
+class Telefon{
         private:
 
             unsigned long int szemelyes;        //* sajat tellszam   (11 szam, alapeset: 0)
@@ -99,13 +99,12 @@ class Telefon: public Ember{
 
 
             /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
-            Telefon(): Ember(), szemelyes(0), business(0)
+            Telefon(): szemelyes(100), business(0)
             {if (DEBUG) std::cout<<"Telefon ctor"<<std::endl;}
 
 
             /* ------------------------ KONSTRUKTOR PARAMETERREL ------------------------ */
-            Telefon(char *v, size_t lv, char *k, size_t lk, char *b, size_t lb,unsigned long int sz, unsigned long int bu):
-            Ember(v,lv,k,lk,b,lb) ,szemelyes(sz), business(bu){
+            Telefon(unsigned long int sz, unsigned long int bu): szemelyes(sz), business(bu){
                 if (DEBUG) std::cout<<"Telefon param ctor"<<std::endl;}
 
 
@@ -115,5 +114,7 @@ class Telefon: public Ember{
            /* -------------------------------- GETTEREK -------------------------------- */
            unsigned long int getSzemTell()const{return szemelyes;}      //* visszaadja a szemelyes telefonszamot
            unsigned long int getCegesTell()const{return business;}      //* visszaada a ceges telefonszamot
+           size_t getLenSzem()const{return std::to_string(szemelyes).length();} //* visszaadja a szemelyes telefonszam hosszat
+           size_t getLenCeg()const{return std::to_string(business).length();}   //* visszaadja a ceges telefonszam hosszat
 };
 
