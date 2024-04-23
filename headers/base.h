@@ -6,6 +6,7 @@
 
 
 
+
 /* -------------------------------------------------------------------------- */
 //!                               BEJEGYZES CLASS                              !//
 /* -------------------------------------------------------------------------- */
@@ -49,9 +50,64 @@ class Bejegyzes{
 
 
 
+
+class Telefonkonyv{
+    private:
+        Bejegyzes* bejegyzesek;      //bejegyzesek tombje
+        size_t meret;               //tomb merete
+    public:
+
+
+        
+        
+
+};
+
+
 //void bejegyzesKi(Bejegyzes& be){
  //   std::cout << be.getVezetek() << " " << be.getKereszt() << " "<<be.getSzemTell() << " " <<be.getVaros() << std::endl;
 //}
+
+/* ========================================================================== */
+//!                            TELEFONKÖNYV KIÍRÁSA                           !//
+/* ========================================================================== */
+
+void header(){          //fejlec kiirasa
+
+    clearScreen();    //toroljuk a kepernyot
+
+    
+    for (size_t i = 0; i < 100; i++)
+    {
+        std::cout << "=";
+    }
+    std::endl(std::cout);
+    
+    int width = 20; // Oszlop szélessége
+    std::cout << std::setw(10) <<std::left <<"Vezeteknév" 
+              << std::setw(width - 10) << std::setfill(' ') << ""
+
+              << std::setw(11) <<std::left << "Keresztnév" 
+              << std::setw(width - 11) << std::setfill(' ') << ""
+
+              << std::setw(7) <<std::left << "Becenév"
+              << std::setw(width - 7) << std::setfill(' ') << ""
+
+              << std::setw(14) <<std::left << "Sz.telefonszám"
+              << std::setw(width - 14) << std::setfill(' ') << ""
+
+              << std::setw(5) <<std::left << "Város" 
+              << std::endl;
+
+    
+    for (size_t i = 0; i < 100; i++)
+    {
+        std::cout << "=";
+    }
+    std::endl(std::cout);
+}
+
+//* -------------------------- EGY BEJEGYZES KIÍRÁSA ------------------------- *//
 
 void bejegyzesKi(Bejegyzes& be){        //bejegyzes kiirasa
     
@@ -70,38 +126,4 @@ void bejegyzesKi(Bejegyzes& be){        //bejegyzes kiirasa
 
               << std::setw(be.getLenVar()) <<std::left << be.getVaros() 
               << std::endl;
-}
-
-void header(){          //fejlec kiirasa
-
-
-    std::cout<<"\n"<<std::endl;
-    for (size_t i = 0; i < 100; i++)
-    {
-        std::cout << "=";
-    }
-    std::endl(std::cout);
-    
-    int width = 20; // Oszlop szélessége
-    std::cout << std::setw(10) <<std::left <<"Vezeteknév" 
-              << std::setw(width - 10) << std::setfill(' ') << ""
-
-              << std::setw(10) <<std::left << "Keresztnév" 
-              << std::setw(width - 10) << std::setfill(' ') << ""
-
-              << std::setw(7) <<std::left << "Becenév"
-              << std::setw(width - 7) << std::setfill(' ') << ""
-
-              << std::setw(14) <<std::left << "Sz.telefonszám"
-              << std::setw(width - 14) << std::setfill(' ') << ""
-
-              << std::setw(5) <<std::left << "Város" 
-              << std::endl;
-
-    
-    for (size_t i = 0; i < 100; i++)
-    {
-        std::cout << "=";
-    }
-    std::endl(std::cout);
 }

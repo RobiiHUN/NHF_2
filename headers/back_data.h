@@ -17,6 +17,7 @@
 #include <iostream>
 #include "back_data.cpp"
 #include <string>
+#include <cstdlib>  //kijelzo torleshez
 
 
 
@@ -64,6 +65,10 @@ class Ember{
             
             /* ----------------------- KONSTRUKTOR PARAMETEREKKEL ----------------------- */
             Ember(char *v, size_t lv, char *k, size_t lk, char *b, size_t lb): EMBER_ROVID{
+                if (DEBUG) std::cout<<"Ember param ctor"<<std::endl;
+                }
+            Ember(const std::string& v, size_t lv, const std::string& k, size_t lk, const std::string& b, size_t lb): 
+                vezeteknev(v.c_str()), len_vez(lv), keresztnev(k.c_str()), len_kereszt(lk), becenev(b.c_str()), len_bece(lb){
                 if (DEBUG) std::cout<<"Ember param ctor"<<std::endl;
                 }
 
@@ -117,4 +122,11 @@ class Telefon{
            size_t getLenSzem()const{return std::to_string(szemelyes).length();} //* visszaadja a szemelyes telefonszam hosszat
            size_t getLenCeg()const{return std::to_string(business).length();}   //* visszaadja a ceges telefonszam hosszat
 };
+
+
+/* ----------------------------- KIJELZO TORLESE ---------------------------- */
+
+void clearScreen(){
+    std::cout << "\033[2J\033[1;1H";
+}
 
