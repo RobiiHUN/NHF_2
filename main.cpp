@@ -12,7 +12,7 @@ char vezeteknev1[] = "Test";
 size_t l_vez = 5;
 char keresztnev[] = "Kalapacs";
 size_t l_ker = 9;
-char becenev[] = "KALA";
+char becenev[] = "Kala";
 size_t l_bece = 5;
 
         /* -------------------------------------------------------------------------- */
