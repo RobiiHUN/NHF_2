@@ -69,9 +69,11 @@ while (std::getline(file, line)) {
 //feltoltesTelefonkonyv("files/source.txt");
 
 Telefonkonyv tk;
-tk.addBejegyzes(valami);
+header();
+//tk.addBejegyzes(valami);
 tk.feltoltesTelefonkonyv("files/source.txt");
-tk.kiir();
+//tk.kiir();
+
 
 
 return 0;

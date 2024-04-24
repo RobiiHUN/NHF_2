@@ -109,13 +109,20 @@ void bejegyzesKi(Bejegyzes& be){        //bejegyzes kiirasa
 }
 
 
+
+/* ========================================================================== */
+//!                               TELEFONKONYV                               !//
+/* ========================================================================== */
+
+
+
 class Telefonkonyv{
     private:
         Bejegyzes* bejegyzesek;      //bejegyzesek tombje
         size_t meret;               //tomb merete
     public:
         /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
-        Telefonkonyv() : bejegyzesek(nullptr), meret(0) {
+        Telefonkonyv() : bejegyzesek(), meret(0) {
             if (DEBUG) std::cout << "Telefonkonyv ctor" << std::endl;
         }
         /* ----------------------- KONSTRUKTOR PARAMETEREKKEL ----------------------- */
@@ -131,24 +138,48 @@ class Telefonkonyv{
             if (DEBUG) std::cout << "Telefonkonyv dtor" << std::endl;
             delete[] bejegyzesek;
         }
-
-        void addBejegyzes(const Bejegyzes& bejegyzes) {
-            Bejegyzes* temp = new Bejegyzes[meret + 1];
+        Telefonkonyv(const Telefonkonyv& other) : bejegyzesek(new Bejegyzes[other.meret]), meret(other.meret) {
             for (size_t i = 0; i < meret; ++i) {
-                temp[i] = bejegyzesek[i];
+                bejegyzesek[i] = other.bejegyzesek[i];
             }
-            temp[meret] = bejegyzes;
+        }
+        Telefonkonyv& operator=(const Telefonkonyv& other) {
+            if (this == &other) {
+                return *this;
+            }
             delete[] bejegyzesek;
-            bejegyzesek = temp;
-            ++meret;
+            bejegyzesek = new Bejegyzes[other.meret];
+            meret = other.meret;
+            for (size_t i = 0; i < meret; ++i) {
+                bejegyzesek[i] = other.bejegyzesek[i];
+            }
+            return *this;
         }
 
 
-        void kiir() {
-            //header();
+        void addBejegyzes(const Bejegyzes& bejegyzes) {
+            if (meret == 0) {
+                bejegyzesek = new Bejegyzes[1];
+                meret = 1;
+            } else {
+                Bejegyzes* temp = new Bejegyzes[meret + 1];
+                for (size_t i = 0; i < meret; ++i) {
+                    temp[i] = bejegyzesek[i];
+                    
+                }
+                delete[] bejegyzesek;
+                bejegyzesek = temp;
+                ++meret;
+            }
+            bejegyzesek[meret - 1] = bejegyzes;
+        }
+
+        void kiir() {           //kiirja a telefonkonyvet
+            header();
             for (size_t i = 0; i < meret; ++i) {
                 bejegyzesKi(bejegyzesek[i]);
             }
+            //bejegyzesKi(bejegyzesek[1]); //TODO ez jo, de a vezeteknev, keresztnev, becenev nem jo
         }
 
         void feltoltesTelefonkonyv(const std::string& filename) {
@@ -178,7 +209,9 @@ class Telefonkonyv{
                 Telefon telefon(szemelyes, ceges);
                 Bejegyzes bejegyzes(ember, telefon, varos, havi_dij); 
                 addBejegyzes(bejegyzes);
+                
                 bejegyzesKi(bejegyzes);
+                
             }
         }
 
