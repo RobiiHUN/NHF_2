@@ -56,6 +56,8 @@ class Ember{
         
         public:
 
+            
+
 
             /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
             Ember(): vezeteknev("N/A"), len_vez(3), keresztnev("N/A"), len_kereszt(3), becenev("N/A"), len_bece(3){

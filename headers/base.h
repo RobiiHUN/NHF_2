@@ -48,26 +48,6 @@ class Bejegyzes{
 
 };
 
-
-
-
-class Telefonkonyv{
-    private:
-        Bejegyzes* bejegyzesek;      //bejegyzesek tombje
-        size_t meret;               //tomb merete
-    public:
-
-
-        
-        
-
-};
-
-
-//void bejegyzesKi(Bejegyzes& be){
- //   std::cout << be.getVezetek() << " " << be.getKereszt() << " "<<be.getSzemTell() << " " <<be.getVaros() << std::endl;
-//}
-
 /* ========================================================================== */
 //!                            TELEFONKÖNYV KIÍRÁSA                           !//
 /* ========================================================================== */
@@ -127,3 +107,119 @@ void bejegyzesKi(Bejegyzes& be){        //bejegyzes kiirasa
               << std::setw(be.getLenVar()) <<std::left << be.getVaros() 
               << std::endl;
 }
+
+
+class Telefonkonyv{
+    private:
+        Bejegyzes* bejegyzesek;      //bejegyzesek tombje
+        size_t meret;               //tomb merete
+    public:
+        /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
+        Telefonkonyv() : bejegyzesek(nullptr), meret(0) {
+            if (DEBUG) std::cout << "Telefonkonyv ctor" << std::endl;
+        }
+        /* ----------------------- KONSTRUKTOR PARAMETEREKKEL ----------------------- */
+        Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {
+            if (DEBUG) std::cout << "Telefonkonyv param ctor" << std::endl;
+        }
+        Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
+            if (DEBUG) std::cout << "Telefonkonyv param ctor" << std::endl;
+        }
+        
+        /* ------------------------------- DESTRUKTOR ------------------------------- */
+        ~Telefonkonyv() {
+            if (DEBUG) std::cout << "Telefonkonyv dtor" << std::endl;
+            delete[] bejegyzesek;
+        }
+
+        void addBejegyzes(const Bejegyzes& bejegyzes) {
+            Bejegyzes* temp = new Bejegyzes[meret + 1];
+            for (size_t i = 0; i < meret; ++i) {
+                temp[i] = bejegyzesek[i];
+            }
+            temp[meret] = bejegyzes;
+            delete[] bejegyzesek;
+            bejegyzesek = temp;
+            ++meret;
+        }
+
+
+        void kiir() {
+            //header();
+            for (size_t i = 0; i < meret; ++i) {
+                bejegyzesKi(bejegyzesek[i]);
+            }
+        }
+
+        void feltoltesTelefonkonyv(const std::string& filename) {
+            std::ifstream file(filename);
+            std::string line;
+            
+            //header();
+
+            while (std::getline(file, line)) {
+                std::istringstream iss(line);
+                std::string vezeteknev, keresztnev, becenev;
+                unsigned long int szemelyes, ceges;
+                unsigned int varos, havi_dij;
+
+                std::getline(iss, vezeteknev, ';');
+                std::getline(iss, keresztnev, ';');
+                std::getline(iss, becenev, ';');
+                iss >> szemelyes;
+                iss.ignore(); // ';' karakter átugrása
+                iss >> ceges;
+                iss.ignore(); // ';' karakter átugrása
+                iss >> varos;
+                iss.ignore(); // ';' karakter átugrása
+                iss >> havi_dij;
+
+                Ember ember(vezeteknev, vezeteknev.length(), keresztnev, keresztnev.length(), becenev, becenev.length());
+                Telefon telefon(szemelyes, ceges);
+                Bejegyzes bejegyzes(ember, telefon, varos, havi_dij); 
+                addBejegyzes(bejegyzes);
+                bejegyzesKi(bejegyzes);
+            }
+        }
+
+        /* void feltoltesTelefonkonyv(const std::string& filename) {
+            std::ifstream file(filename);
+            std::string line;
+            
+            header();
+
+            while (std::getline(file, line)) {
+                std::istringstream iss(line);
+                std::string vezeteknev, keresztnev, becenev;
+                unsigned long int szemelyes, ceges;
+                unsigned int varos, havi_dij;
+
+                std::getline(iss, vezeteknev, ';');
+                std::getline(iss, keresztnev, ';');
+                std::getline(iss, becenev, ';');
+                iss >> szemelyes;
+                iss.ignore(); // ';' karakter átugrása
+                iss >> ceges;
+                iss.ignore(); // ';' karakter átugrása
+                iss >> varos;
+                iss.ignore(); // ';' karakter átugrása
+                iss >> havi_dij;
+
+                Ember ember(vezeteknev, vezeteknev.length(), keresztnev, keresztnev.length(), becenev, becenev.length());
+                Telefon telefon(szemelyes, ceges);
+                Bejegyzes bejegyzes(ember, telefon, varos, havi_dij); 
+                addBejegyzes(bejegyzes);
+                bejegyzesKi(bejegyzes);
+            }
+        } */
+
+
+};
+
+
+
+
+//void bejegyzesKi(Bejegyzes& be){
+ //   std::cout << be.getVezetek() << " " << be.getKereszt() << " "<<be.getSzemTell() << " " <<be.getVaros() << std::endl;
+//}
+

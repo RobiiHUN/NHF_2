@@ -23,9 +23,10 @@ Ember ember(vezeteknev1, l_vez, keresztnev, l_ker, becenev, l_bece);
 
         /* -------------------------------------------------------------------------- */
 
+/* option shift a
 
-
-std::string vezeteknev2;
+//* 
+std::string vezeteknev2 ;
 size_t l_vez2;
 std::string keresztnev2;
 size_t l_ker2;
@@ -63,8 +64,15 @@ while (std::getline(file, line)) {
     Bejegyzes bejegyzes(ember2, telefon, varos, havi_dij); 
     bejegyzesKi(bejegyzes);    
 
-    // Itt használd fel az adatokat
-}
+   
+}  //*/
+//feltoltesTelefonkonyv("files/source.txt");
+
+Telefonkonyv tk;
+tk.addBejegyzes(valami);
+tk.feltoltesTelefonkonyv("files/source.txt");
+tk.kiir();
+
 
 return 0;
 }

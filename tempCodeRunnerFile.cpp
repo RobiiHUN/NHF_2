@@ -1,1 +1,2 @@
-ember2
+
+    iss.ignore(); // ';' karakter átugrása
