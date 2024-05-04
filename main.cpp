@@ -68,7 +68,7 @@ while (std::getline(file, line)) {
     bejegyzesKi(bejegyzes);    
 
    
-}  //*/
+}  */
 //feltoltesTelefonkonyv("files/source.txt");
 Telefon tf;
 Bejegyzes bejegy(ember, tf, 1, 100);
