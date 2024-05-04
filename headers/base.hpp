@@ -1,3 +1,6 @@
+#ifndef BASE_HPP
+#define BASE_HPP
+
 #include "back_data.hpp"
 #include <iomanip>  //a tablazathoz kell
 
@@ -223,3 +226,4 @@ class Telefonkonyv{
  //   std::cout << be.getVezetek() << " " << be.getKereszt() << " "<<be.getSzemTell() << " " <<be.getVaros() << std::endl;
 //}
 
+#endif

@@ -1,5 +1,5 @@
-#ifndef BACK_DATA_H
-#define BACK_DATA_H
+#ifndef BACK_DATA_HPP
+#define BACK_DATA_HPP
    
    
     /* -------------------------------------------------------------------------- */ // control + shift + Y
@@ -19,7 +19,6 @@
 
 
 #include <iostream>
-//#include "back_data.cpp"
 #include <string>
 #include <cstdlib>  //kijelzo torleshez
 
