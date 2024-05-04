@@ -12,23 +12,21 @@
 
 class Bejegyzes{
         private:
-            Telefon telefon;            // telefonszamok
             Ember ember;                // ember adatai
+            Telefon telefon;            // telefonszam
             unsigned int varos;         // iranyito szama                   (alapeset: 0 )
             unsigned int havi_dij;      // havi dijja az elofizetesnek      (alapesset: 0)
         
         public:
 
             /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
-            Bejegyzes(): telefon(), ember(), varos(0), havi_dij(0)
-            {if (DEBUG) std::cout<<"Bejegyzes ctor"<<std::endl;}
+            Bejegyzes();
 
             /* ----------------------- KONSTRUKTOR PARAMETEREKKEL ----------------------- */
-            Bejegyzes(const Ember& e, const Telefon& t,  unsigned int v, unsigned int h):
-                telefon(t), ember(e), varos(v), havi_dij(h){if (DEBUG) std::cout<<"Bejegyzes param ctor"<<std::endl;}
+            Bejegyzes(const Ember& e, const Telefon& t,  unsigned int v, unsigned int h);
 
             /* ------------------------------- DESTRUKTOR ------------------------------- */
-            ~Bejegyzes(){if (DEBUG) std::cout<<"Bejegyzes dtor"<<std::endl;}
+            ~Bejegyzes();
 
             /* -------------------------------- GETTEREK -------------------------------- */
             unsigned int getVaros()const{return varos;}     //* visszaadja a varos iranyito szamat
