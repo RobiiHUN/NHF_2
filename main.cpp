@@ -5,8 +5,10 @@
 
 
 
-#include "headers/base.h"
-//#include "headers/back_data.h"
+#include "headers/base.hpp"
+#include "headers/back_data.hpp"
+
+
 
 
 int main(){
@@ -21,11 +23,12 @@ char becenev[] = "Kala";
 size_t l_bece = 5;
 Ember ember(vezeteknev1, l_vez, keresztnev, l_ker, becenev, l_bece);
 
+
         /* -------------------------------------------------------------------------- */
 
 /* option shift a
 
-//* 
+
 std::string vezeteknev2 ;
 size_t l_vez2;
 std::string keresztnev2;
@@ -67,11 +70,14 @@ while (std::getline(file, line)) {
    
 }  //*/
 //feltoltesTelefonkonyv("files/source.txt");
-
-Telefonkonyv tk;
+Telefon tf;
+Bejegyzes bejegy(ember, tf, 1, 100);
 header();
+bejegyzesKi(bejegy);
+Telefonkonyv tk;
+//header();
 //tk.addBejegyzes(valami);
-tk.feltoltesTelefonkonyv("files/source.txt");
+//tk.feltoltesTelefonkonyv("files/source.txt");
 //tk.kiir();
 
 
