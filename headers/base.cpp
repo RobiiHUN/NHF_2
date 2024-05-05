@@ -34,7 +34,76 @@ size_t Bejegyzes::getLenCeg()const{return telefon.getLenCeg();}                 
 size_t Bejegyzes::getLenVar()const{return std::to_string(varos).length();}          //* visszaadja a varos iranyito szam hosszat
 
 
+/* ========================================================================== */
+//!                                TELEFONKONYV                                */
+/* ========================================================================== */
+/* ------------------------------ KONSTRUKTOROK ----------------------------- */
 
+Telefonkonyv::Telefonkonyv(): bejegyzesek(), meret(0){
+    if (DEBUG) std::cout<<"Telefonkonyv ctor"<<std::endl;
+}
+Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {
+            if (DEBUG) std::cout << "Telefonkonyv param ctor" << std::endl;
+        }
+Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
+            if (DEBUG) std::cout << "Telefonkonyv param ctor" << std::endl;
+        }
+/* ------------------------------ DESTROKTOROK ------------------------------ */
+Telefonkonyv::~Telefonkonyv() {
+    if (DEBUG) std::cout << "Telefonkonyv dtor" << std::endl;
+    delete[] bejegyzesek;
+}
+/* ------------------------------- MASOLO CTOR ------------------------------ */
+Telefonkonyv::Telefonkonyv(const Telefonkonyv& other) : bejegyzesek(new Bejegyzes[other.meret]), meret(other.meret) {
+    for (size_t i = 0; i < meret; ++i) {
+        bejegyzesek[i] = other.bejegyzesek[i];
+    }
+}
+
+/* --------------------------- EGYENLOSEG OPERATOR -------------------------- */
+Telefonkonyv& Telefonkonyv::operator=(const Telefonkonyv& other) {
+    if (this != &other) {
+        delete[] bejegyzesek;
+        meret = other.meret;
+        bejegyzesek = new Bejegyzes[meret];
+        for (size_t i = 0; i < meret; ++i) {
+            bejegyzesek[i] = other.bejegyzesek[i];
+        }
+    }
+    return *this;
+}
+
+/* --------------------------- BEJEGYZES HOZZADASA -------------------------- */
+
+
+void Telefonkonyv::addBejegyzes(const Bejegyzes& bejegyzes) { //bejegyzes hozzaadasa a telefonkonyvhez
+            if (meret == 0) {
+                bejegyzesek = new Bejegyzes[1];
+                meret = 1;
+            } else {
+                Bejegyzes* temp = new Bejegyzes[meret + 1];
+                for (size_t i = 0; i < meret; ++i) {
+                    temp[i] = bejegyzesek[i];
+                    
+                }
+                delete[] bejegyzesek;
+                bejegyzesek = temp;
+                ++meret;
+            }
+            bejegyzesek[meret - 1] = bejegyzes;
+        }
+
+
+/* ------------------------------- KIIRATAS -------------------------------- */
+
+void Telefonkonyv::kiir() const { 
+    header();
+    for (size_t i = 0; i < meret; ++i) {
+        bejegyzesKi(bejegyzesek[i]);
+    }
+}
+
+/* ---------------------------- FEJLEC KIIRATASA ---------------------------- */
 
 void header(){          //fejlec kiirasa
     clearScreen();    //toroljuk a kepernyot
