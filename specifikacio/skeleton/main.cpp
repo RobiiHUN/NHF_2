@@ -5,8 +5,8 @@
 
 
 
-#include "headers/base.hpp"
-#include "headers/gtest_lite.h"
+#include "base.hpp"
+#include "gtest_lite.h"
 
 
 
