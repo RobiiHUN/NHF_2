@@ -24,6 +24,7 @@ char becenev[] = "Kalad";
 size_t l_bece = 5;
 
 
+
         /* -------------------------------------------------------------------------- */
 
 /* option shift a        */
@@ -42,11 +43,11 @@ Telefonkonyv tk;
 
 /* ------------------------- EMBER PARAMETERES KTOR ------------------------- */
 TEST(Ember, paramctor)
-        EXPECT_EQ(vezeteknev1, ember.getVezetek());
+        EXPECT_STREQ(vezeteknev1, ember.getVezetek());
         EXPECT_EQ(l_vez, ember.getLenVez());
-        EXPECT_EQ(keresztnev, ember.getKereszt());
+        EXPECT_STREQ(keresztnev, ember.getKereszt());
         EXPECT_EQ(l_ker, ember.getLenKer());
-        EXPECT_EQ(becenev, ember.getBece());
+        EXPECT_STREQ(becenev, ember.getBece());
         EXPECT_EQ(l_bece, ember.getLenBece());
 
 END     
@@ -54,11 +55,11 @@ END
 /* ------------------------- EMBER PARAMNELKULI CTOR ------------------------ */
 
 TEST(Ember, paramn.)
-        EXPECT_EQ("N/A", ember2.getVezetek());
+        EXPECT_STREQ("N/A", ember2.getVezetek());
         EXPECT_EQ(3, ember2.getLenVez());
-        EXPECT_EQ("N/A", ember2.getKereszt());
+        EXPECT_STREQ("N/A", ember2.getKereszt());
         EXPECT_EQ(3, ember2.getLenKer());
-        EXPECT_EQ("N/A", ember2.getBece());
+        EXPECT_STREQ("N/A", ember2.getBece());
         EXPECT_EQ(3, ember2.getLenBece());    
 END
 
@@ -86,9 +87,9 @@ TEST(Bejegyzes, paramn.)
         EXPECT_EQ(0, bejegyzes.getHavi());
         EXPECT_EQ(100, bejegyzes.getSzemTell());
         EXPECT_EQ(0, bejegyzes.getCegeTell());
-        EXPECT_EQ("N/A", bejegyzes.getVezetek());
-        EXPECT_EQ("N/A", bejegyzes.getKereszt());
-        EXPECT_EQ("N/A", bejegyzes.getBece());
+        EXPECT_STREQ("N/A", bejegyzes.getVezetek());
+        EXPECT_STREQ("N/A", bejegyzes.getKereszt());
+        EXPECT_STREQ("N/A", bejegyzes.getBece());
         EXPECT_EQ(3, bejegyzes.getLenVez());
         EXPECT_EQ(3, bejegyzes.getLenKer());
         EXPECT_EQ(3, bejegyzes.getLenBece());
@@ -103,9 +104,9 @@ TEST(Bejegyzes, param)
         EXPECT_EQ(100, bejegy.getHavi());
         EXPECT_EQ(36203952740, bejegy.getSzemTell());
         EXPECT_EQ(36401239876, bejegy.getCegeTell());
-        EXPECT_EQ(vezeteknev1, bejegy.getVezetek());
-        EXPECT_EQ(keresztnev, bejegy.getKereszt());
-        EXPECT_EQ(becenev, bejegy.getBece());
+        EXPECT_STREQ(vezeteknev1, bejegy.getVezetek());
+        EXPECT_STREQ(keresztnev, bejegy.getKereszt());
+        EXPECT_STREQ(becenev, bejegy.getBece());
         EXPECT_EQ(l_vez, bejegy.getLenVez());
         EXPECT_EQ(l_ker, bejegy.getLenKer());
         EXPECT_EQ(l_bece, bejegy.getLenBece());
