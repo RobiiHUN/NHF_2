@@ -40,6 +40,9 @@
  * A működés részleteinek megértése szorgalmi feladat.
  */
 
+#include "macro.h"
+
+
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -319,7 +322,12 @@ public:
 #ifdef CPORTA
         if (failed)
 #endif // CPORTA
-            std::cerr << "\n==== TESZT VEGE ==== HIBAS/OSSZES: " << failed << "/" << sum << std::endl;
+            if (TESTELES)
+            {
+                std::cerr << "\n==== TESZT VEGE ==== HIBAS/OSSZES: " << failed << "/" << sum << std::endl;
+            }
+            
+            
     }
 };
 
