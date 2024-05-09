@@ -1,7 +1,7 @@
-#include "back_data.hpp"
+#include "../headers/back_data.hpp"
 
 
-void clearScreen(){if(DEBUG) return;std::cout << "\033[2J\033[1;1H";}
+void clearScreen(){std::cout << "\033[2J\033[1;1H";}
 
 /* ========================================================================== */
 //!                                   EMBEREK                                 */
@@ -9,22 +9,21 @@ void clearScreen(){if(DEBUG) return;std::cout << "\033[2J\033[1;1H";}
 
 /* ------------------------------ KONTRUKTOROK ------------------------------ */
 
-Ember::Ember(): vezeteknev("N/A"), len_vez(3), keresztnev("N/A"), len_kereszt(3), becenev("N/A"), len_bece(3){      //*konsruktor parameter nelkul
-                if (DEBUG) std::cout<<"Ember ctor"<<std::endl;};
+Ember::Ember(): vezeteknev("N/A"), len_vez(3), keresztnev("N/A"), len_kereszt(3), becenev("N/A"), len_bece(3){};
 
-Ember::Ember(char *v, size_t lv, char *k, size_t lk, char *b, size_t lb): EMBER_ROVID{ //*konstruktor parameterekkel
-                if (DEBUG) std::cout<<"Ember param ctor"<<std::endl;
-                }
+Ember::Ember(char *v, size_t lv, char *k, size_t lk, char *b, size_t lb): 
+                vezeteknev(v), len_vez(lv), keresztnev(k), 
+                    len_kereszt(lk), becenev(b), len_bece(lb){ //*konstruktor parameterekkel
+                    }
 
 
 Ember::Ember(const std::string& v, size_t lv, const std::string& k, size_t lk, const std::string& b, size_t lb): //*konstruktor parameterekkel es stringkezelessel
                 vezeteknev(v.c_str()), len_vez(lv), keresztnev(k.c_str()), len_kereszt(lk), becenev(b.c_str()), len_bece(lb){
-                if (DEBUG) std::cout<<"Ember param ctor"<<std::endl;
-                }
+            }
 
 
 /* ------------------------------- DESTRUKTOR ------------------------------- */
-Ember::~Ember(){if (DEBUG) std::cout<<"Ember dtor"<<std::endl;}
+Ember::~Ember(){}
 
 /* -------------------------------- GETTEREK -------------------------------- */
 const char* Ember::getVezetek()const{return vezeteknev;}      //* visszaadja a vezeteknevet
@@ -44,14 +43,14 @@ size_t Ember::getLenBece()const{return len_bece;}       //* visszaadja a becenev
 
 /* ------------------------------ KONTRUKTOROK ------------------------------ */
 
-Telefon::Telefon(){szemelyes = 100;business = 0;if (DEBUG) std::cout<<"Telefon ctor"<<std::endl;}   //*konstruktor parameter nelkul
+Telefon::Telefon(){szemelyes = 100;business = 0;}   //*konstruktor parameter nelkul
 Telefon::Telefon(unsigned long int sz, unsigned long int bu): szemelyes(sz), business(bu){          //*konstruktor parameterekkel
-                if (DEBUG) std::cout<<"Telefon param ctor"<<std::endl;}
+                }
 
 
 
 /* ------------------------------- DESTRUKTOR ------------------------------- */
-Telefon::~Telefon(){if (DEBUG) std::cout<<"Telefon dtor"<<std::endl;}
+Telefon::~Telefon(){}
 
 /* -------------------------------- GETTEREK -------------------------------- */
 unsigned long int Telefon::getSzemTell()const{return szemelyes;}     //* visszaadja a szemelyes telefonszamot

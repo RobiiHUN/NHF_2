@@ -7,6 +7,7 @@
 
 #include "headers/base.hpp"
 #include "headers/test.hpp"
+#include "headers/ui.hpp"
 
 
 
@@ -15,7 +16,14 @@
 
 
 int main(){
-        test();
+        test(); //teszt fuggveny csak akkor tortenik valami, ha a macro.h-ban a TEST makro true-n van
+        UI ui; 
+        
+        ui.menu();
+
+
+
+        //ui.header();
         /* ----------------------------- TESTELESHEZ JO ----------------------------- */
 
 char vezeteknev1[] = "Test";
@@ -38,7 +46,7 @@ Telefon tf;
 Telefon tf2(36203952740, 36401239876);
 Bejegyzes bejegyzes;
 Bejegyzes bejegy(ember, tf2, 1, 100);
-//header();
+
 //bejegyzesKi(bejegy);
 Telefonkonyv tk;
 

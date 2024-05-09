@@ -50,6 +50,9 @@
         "optional": "cpp",
         "regex": "cpp",
         "unordered_map": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__tree": "cpp",
+        "list": "cpp",
+        "map": "cpp"
     }
 }

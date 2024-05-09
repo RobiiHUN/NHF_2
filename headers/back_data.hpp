@@ -30,9 +30,6 @@
 #include "macro.h"
 
 
-/* ------------------------- EMBER KONSTRUKTOR ROVID ------------------------ */
-#define EMBER_ROVID vezeteknev(v), len_vez(lv), keresztnev(k), len_kereszt(lk), becenev(b), len_bece(lb)
-/* -------------------------------------------------------------------------- */
 
 
 

@@ -1,4 +1,4 @@
 clear
-g++ -o program main.cpp headers/back_data.cpp headers/base.cpp 
+g++ -o program main.cpp cpp/*.cpp -Wall -Werror
 ./program
 rm program
