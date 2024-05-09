@@ -17,7 +17,10 @@
 
 int main(){
         test(); //teszt fuggveny csak akkor tortenik valami, ha a macro.h-ban a TEST makro true-n van
-        UI ui; 
+        
+        
+        
+        UI ui; //menu objektum peldanyitasa
         
         ui.menu();
 

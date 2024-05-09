@@ -38,9 +38,11 @@ void UI::header(){          //fejlec kiirasa
 /* ------------------------------ MENU KIIRASA ------------------------------ */
 
 void UI::menu(){
+    if (TESTELES) return;               //ha a TESTELES makro igaz, akkor nem fut le a menu
     logo();                             //logo kiirasa      
     std::cout<<std::endl;            
     std::cout<<std::endl; 
+
     std::cout << "1. Bejegyzés hozzáadása" << std::endl;
     std::cout << "2. Bejegyzés törlése" << std::endl;
     std::cout << "3. Bejegyzés módosítása" << std::endl;
@@ -50,7 +52,37 @@ void UI::menu(){
     std::cout<<std::endl;            
     std::cout<<std::endl; 
     std::cout << "Válasszon menüpontot: (1-6)" << std::endl;
+    menuPontValasztas();
+
+
+
 }
+
+int UI::menuPontValasztas(){
+    int valasztas = 0;
+
+    while (true)
+    {
+        std::cin >> valasztas;
+        if (std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(1000, '\n');
+            std::cout << "Hibás bemenet! Kérem adjon meg egy számot 1 és 6 között!" << std::endl;
+        }else if (valasztas < 1 || valasztas > 6)
+        {
+            std::cout << "Hibás bemenet! Kérem adjon meg egy számot 1 és 6 között!" << std::endl;
+        }else
+        {
+            return valasztas;
+        }
+    }
+    
+    
+    
+}
+
+
 /* ------------------------------ LOGO KIIRASA ------------------------------ */
 
 void UI::logo(){

@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <string>
 #include <fstream>
+#include "macro.h"
 
 class UI{
     public:
@@ -12,6 +13,7 @@ class UI{
         void header();
         void logo();
         void menu();
+        int menuPontValasztas();
 
 };
 
