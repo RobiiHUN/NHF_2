@@ -43,14 +43,23 @@ class Bejegyzes{
             size_t getLenCeg()const;                            //* visszaadja a ceges telefonszam hosszat
             size_t getLenVar()const;                            //* visszaadja a varos iranyito szam hosszat
 
+
+            //TODO settereket megcsinalni
+            /* -------------------------------- SETTEREK -------------------------------- */
+            void setVaros(unsigned int v){varos = v;}   //* beallitja a varos iranyito szamat
+            void setHavi(unsigned int h){havi_dij = h;} //* beallitja a havi dijjat
+            void setSzemTell(unsigned long int sz){telefon.setSzemTell(sz);} //* beallitja a szemelyes telefonszamot
+            void setCegeTell(unsigned long int ce){telefon.setCegesTell(ce);} //* beallitja a ceges telefonszamot
+            void setVezetek(const char* v, size_t lv){ember.setVezetek(v, lv);} //* beallitja a vezeteknevet
+            void setKereszt(const char* k, size_t lk){ember.setKereszt(k, lk);} //* beallitja a keresztnevet
+            void setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* beallitja a becenevet
+
+
+            void bejegyzesKi()const;                            //* kiirja a bejegyzest
+
 };
 
-/* ========================================================================== */
-//!                            TELEFONKÖNYV KIÍRÁSA                           !//
-/* ========================================================================== */
 
-
-void bejegyzesKi(Bejegyzes& be);
 
 /* ========================================================================== */
 //!                               TELEFONKONYV                               !//
@@ -62,6 +71,7 @@ class Telefonkonyv{
     private:
         Bejegyzes* bejegyzesek;      //bejegyzesek tombje
         size_t meret;               //tomb merete
+        
     public:
         /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
         Telefonkonyv();

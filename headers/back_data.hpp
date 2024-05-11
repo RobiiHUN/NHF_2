@@ -81,6 +81,11 @@ class Ember{
             size_t getLenKer()const;            //* visszaadja a keresztnev hosszat
             const char* getBece()const;         //* visszaadja a becenevet
             size_t getLenBece()const;           //* visszaadja a becenev hosszat
+
+        /* -------------------------------- SETTEREK -------------------------------- */
+        void setVezetek(const char* v, size_t lv){vezeteknev = v; len_vez = lv;}
+        void setKereszt(const char* k, size_t lk){keresztnev = k; len_kereszt = lk;}
+        void setBece(const char* b, size_t lb){becenev = b; len_bece = lb;}
 };
 
 /* ========================================================================== */
@@ -112,6 +117,10 @@ class Telefon{
            unsigned long int getCegesTell()const;      //* visszaada a ceges telefonszamot
            size_t getLenSzem()const; //* visszaadja a szemelyes telefonszam hosszat
            size_t getLenCeg()const;   //* visszaadja a ceges telefonszam hosszat
+
+           /* -------------------------------- SETTEREK -------------------------------- */
+           void setSzemTell(unsigned long int sz){szemelyes = sz;}
+           void setCegesTell(unsigned long int ce){business = ce;}
 };
 
 

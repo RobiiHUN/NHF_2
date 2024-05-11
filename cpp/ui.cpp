@@ -68,9 +68,11 @@ int UI::menuPontValasztas(){
         {
             std::cin.clear();
             std::cin.ignore(1000, '\n');
+            std::cout << "\x1b[1A\x1b[K";
             std::cout << "Hibás bemenet! Kérem adjon meg egy számot 1 és 6 között!" << std::endl;
         }else if (valasztas < 1 || valasztas > 6)
         {
+            std::cout << "\x1b[1A\x1b[K";
             std::cout << "Hibás bemenet! Kérem adjon meg egy számot 1 és 6 között!" << std::endl;
         }else
         {

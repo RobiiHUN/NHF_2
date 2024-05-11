@@ -37,7 +37,7 @@ size_t Bejegyzes::getLenVar()const{return std::to_string(varos).length();}      
 /* ========================================================================== */
 /* ------------------------------ KONSTRUKTOROK ----------------------------- */
 
-Telefonkonyv::Telefonkonyv(): bejegyzesek(), meret(0){}
+Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){}
 Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {}
 Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {}
 /* ------------------------------ DESTROKTOROK ------------------------------ */
@@ -74,29 +74,33 @@ Telefonkonyv& Telefonkonyv::operator=(const Telefonkonyv& other) {
 
 
 void Telefonkonyv::addBejegyzes(const Bejegyzes& bejegyzes) { //bejegyzes hozzaadasa a telefonkonyvhez
-            if (meret == 0) {
-                bejegyzesek = new Bejegyzes[1];
-                meret = 1;
-            } else {
-                Bejegyzes* temp = new Bejegyzes[meret + 1];
-                for (size_t i = 0; i < meret; ++i) {
-                    temp[i] = bejegyzesek[i];
-                    
-                }
-                delete[] bejegyzesek;
-                bejegyzesek = temp;
-                ++meret;
-            }
-            bejegyzesek[meret - 1] = bejegyzes;
+       //ha a tomb tele van
+         
+        Bejegyzes* uj = new Bejegyzes[meret + 1]; 
+        for (size_t i = 0; i < meret; ++i) {
+            uj[i] = bejegyzesek[i];
         }
+         
+        uj[meret].setVezetek(bejegyzes.getVezetek(), bejegyzes.getLenVez());
+        uj[meret].setKereszt(bejegyzes.getKereszt(), bejegyzes.getLenKer());
+        uj[meret].setBece(bejegyzes.getBece(), bejegyzes.getLenBece());
+        uj[meret].setSzemTell(bejegyzes.getSzemTell());
+        uj[meret].setCegeTell(bejegyzes.getCegeTell());
+        uj[meret].setVaros(bejegyzes.getVaros());
+        uj[meret].setHavi(bejegyzes.getHavi());
+        meret++;
+        delete[] bejegyzesek; 
+        bejegyzesek = uj;
+                  
+    
+}
 
 
 /* ------------------------------- KIIRATAS -------------------------------- */
 
 void Telefonkonyv::kiir() const { 
-    
-    for (size_t i = 0; i < meret; ++i) {
-        bejegyzesKi(bejegyzesek[i]);
+    for (size_t i = 0; i < meret; i++) {
+        bejegyzesek[i].bejegyzesKi();
     }
 }
 
@@ -107,21 +111,21 @@ void Telefonkonyv::kiir() const {
 //* -------------------------- EGY BEJEGYZES KIÍRÁSA ------------------------- *//
 
 
-void bejegyzesKi(Bejegyzes& be){        //bejegyzes kiirasa
-    
+
+void Bejegyzes::bejegyzesKi()const{
     int width = 20; // Oszlop szélessége
-    std::cout << std::setw(be.getLenVez()) <<std::left <<be.getVezetek() 
-              << std::setw((width - be.getLenVez())) << std::setfill(' ') << ""
+    std::cout << std::setw(ember.getLenVez()) <<std::left << ember.getVezetek() 
+              << std::setw((width - ember.getLenVez())) << std::setfill(' ') << ""
 
-              << std::setw(be.getLenKer()) <<std::left << be.getKereszt() 
-              << std::setw(width - be.getLenKer()) << std::setfill(' ') << ""
+              << std::setw(ember.getLenKer()) <<std::left << ember.getKereszt() 
+              << std::setw(width - ember.getLenKer()) << std::setfill(' ') << ""
 
-              << std::setw(be.getLenBece()) <<std::left << be.getBece() 
-              << std::setw(width - be.getLenBece()) << std::setfill(' ') << ""
+              << std::setw(ember.getLenBece()) <<std::left << ember.getBece() 
+              << std::setw(width - ember.getLenBece()) << std::setfill(' ') << ""
 
-              << std::setw(be.getLenSzem()) <<std::left << be.getSzemTell() 
-              << std::setw(width - be.getLenSzem()) << std::setfill(' ') << ""
+              << std::setw(telefon.getLenSzem()) <<std::left << telefon.getSzemTell() 
+              << std::setw(width - telefon.getLenSzem()) << std::setfill(' ') << ""
 
-              << std::setw(be.getLenVar()) <<std::left << be.getVaros() 
+              << std::setw(std::to_string(varos).length()) <<std::left << varos 
               << std::endl;
 }
