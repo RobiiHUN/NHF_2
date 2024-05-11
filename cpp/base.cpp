@@ -1,4 +1,7 @@
 #include "../headers/base.hpp"
+#include <string>   //stringhez
+#include <fstream>
+#include <sstream>
 
 
 /* ========================================================================== */
@@ -101,10 +104,11 @@ void Telefonkonyv::addBejegyzes(const Bejegyzes& bejegyzes) { //bejegyzes hozzaa
 void Telefonkonyv::kiir() const { 
     for (size_t i = 0; i < meret; i++) {
         bejegyzesek[i].bejegyzesKi();
+        
     }
 }
 
-/* ---------------------------- FEJLEC KIIRATASA ---------------------------- */
+
 
 
 
@@ -113,19 +117,64 @@ void Telefonkonyv::kiir() const {
 
 
 void Bejegyzes::bejegyzesKi()const{
+    std::cout << "\033[1m"; //félkövér betű
+   
     int width = 20; // Oszlop szélessége
     std::cout << std::setw(ember.getLenVez()) <<std::left << ember.getVezetek() 
               << std::setw((width - ember.getLenVez())) << std::setfill(' ') << ""
 
               << std::setw(ember.getLenKer()) <<std::left << ember.getKereszt() 
-              << std::setw(width - ember.getLenKer()) << std::setfill(' ') << ""
+              << std::setw(width - ember.getLenKer()  - 1) << std::setfill(' ') << ""
+              <<"\033[0m"
 
               << std::setw(ember.getLenBece()) <<std::left << ember.getBece() 
               << std::setw(width - ember.getLenBece()) << std::setfill(' ') << ""
 
-              << std::setw(telefon.getLenSzem()) <<std::left << telefon.getSzemTell() 
-              << std::setw(width - telefon.getLenSzem()) << std::setfill(' ') << ""
+              << "+ "<< std::setw(telefon.getLenSzem()) <<std::left  << telefon.getSzemTell() 
+              << std::setw(width - telefon.getLenSzem() - 2) << std::setfill(' ') << ""
 
               << std::setw(std::to_string(varos).length()) <<std::left << varos 
               << std::endl;
+    std::cout << "\033[90m";
+    for (size_t i = 0; i < 100; i++)
+    {
+        std::cout << "-";
+    }
+    std::cout << "\033[0m";
+    std::endl(std::cout);         
+}
+
+
+
+
+void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
+    std::ifstream fajl(fajlnev);
+    std::string sor;
+
+    while (std::getline(fajl, sor)) {
+        std::stringstream ss(sor);
+        std::string vezeteknev_str, keresztnev_str, becenev_str, telefon1, telefon2, irsz, jovedelem;
+
+        std::getline(ss, vezeteknev_str, ';');
+        std::getline(ss, keresztnev_str, ';');
+        std::getline(ss, becenev_str, ';');
+        std::getline(ss, telefon1, ';');
+        std::getline(ss, telefon2, ';');
+        std::getline(ss, irsz, ';');
+        std::getline(ss, jovedelem, ';');
+
+        const char* vezeteknev = vezeteknev_str.c_str();
+        const char* keresztnev = keresztnev_str.c_str();
+        const char* becenev = becenev_str.c_str();
+
+        Ember ember(vezeteknev,vezeteknev_str.length(), keresztnev, keresztnev_str.length(), becenev,
+            becenev_str.length());
+
+        Telefon telefon(std::stol(telefon1), std::stol(telefon2));
+        Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(jovedelem));
+        
+        
+        
+        addBejegyzes(bejegyzes);
+    }
 }

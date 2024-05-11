@@ -7,12 +7,13 @@ void UI::clearScreen(){std::cout << "\033[2J\033[1;1H";}
 /* ---------------------------- HEADER KIIRATASA ---------------------------- */
 void UI::header(){          //fejlec kiirasa
     clearScreen();    //toroljuk a kepernyot
+    std::cout<<"\033[1m"; //félkövér betű
     for (size_t i = 0; i < 100; i++)
     {
         std::cout << "=";
     }
     std::endl(std::cout);
-    
+    std::cout << "\033[32m";
     int width = 20; // Oszlop szélessége
     std::cout << std::setw(10) <<std::left <<"Vezeteknév" 
               << std::setw(width - 10) << std::setfill(' ') << ""
@@ -28,11 +29,14 @@ void UI::header(){          //fejlec kiirasa
 
               << std::setw(5) <<std::left << "Város" 
               << std::endl;
+
+    std::cout << "\033[0m";
     for (size_t i = 0; i < 100; i++)
     {
         std::cout << "=";
     }
     std::endl(std::cout);
+
 }
 
 /* ------------------------------ MENU KIIRASA ------------------------------ */

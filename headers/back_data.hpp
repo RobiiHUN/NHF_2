@@ -48,11 +48,11 @@
 class Ember{
         private:
             
-            const char *vezeteknev;       //* nev eltarolasa din. tombben
+            char *vezeteknev;       //* nev eltarolasa din. tombben
             size_t len_vez;         //* nev hossza
-            const char *keresztnev;       //* nev eltarolasa din. tombben
+            char *keresztnev;       //* nev eltarolasa din. tombben
             size_t len_kereszt;     //* nev hossza
-            const char *becenev;          //* nev eltarolasa din. tombben
+            char *becenev;          //* nev eltarolasa din. tombben
             size_t len_bece;        //* nev hossza
 
             
@@ -68,7 +68,7 @@ class Ember{
 
             /* ----------------------- KONSTRUKTOR PARAMETEREKKEL ----------------------- */
             Ember(char *v, size_t lv, char *k, size_t lk, char *b, size_t lb);
-            Ember(const std::string& v, size_t lv, const std::string& k, size_t lk, const std::string& b, size_t lb); // a fajlbol valo bolvasashoz
+            Ember(const char* v, size_t lv, const char* k, size_t lk, const char* b, size_t lb);
 
             /* -------------------------------- DESTRUKTOR ------------------------------ */
             ~Ember();
@@ -83,9 +83,15 @@ class Ember{
             size_t getLenBece()const;           //* visszaadja a becenev hosszat
 
         /* -------------------------------- SETTEREK -------------------------------- */
-        void setVezetek(const char* v, size_t lv){vezeteknev = v; len_vez = lv;}
-        void setKereszt(const char* k, size_t lk){keresztnev = k; len_kereszt = lk;}
-        void setBece(const char* b, size_t lb){becenev = b; len_bece = lb;}
+        void setVezetek(const char* v, size_t lv);
+        void setKereszt(const char* k, size_t lk);
+        void setBece(const char* b, size_t lb);
+
+        /* ------------------------------- MASOLO CTOR ------------------------------ */
+        Ember(const Ember& other);
+
+        /* --------------------------- EGYENLOSEG OPERATOR -------------------------- */
+        Ember& operator=(const Ember& other);
 };
 
 /* ========================================================================== */

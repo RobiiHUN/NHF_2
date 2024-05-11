@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <sstream>
+
 
 
 
@@ -20,7 +19,7 @@ int main(){
         
         
         
-        //UI ui; //menu objektum peldanyitasa
+        UI ui; //menu objektum peldanyitasa
         //ui.menu();
 
 
@@ -59,12 +58,12 @@ Bejegyzes bejegy2(ember2, tf3, 3455, 625);
 
 
 
-//bejegy.bejegyzesKi();
 Telefonkonyv tk;
-//tk.addBejegyzes(bejegy);
-//tk.addBejegyzes(bejegy2);
-//bejegy.bejegyzesKi();
-tk.kiir();
+tk.feltoltesTelefonkonyv("files/source.txt");
+ui.header();               //!tökéletesen működik
+tk.kiir();                //!tökéletesen működik
+//ui.menu();              //!tökéletesen működik
+
 
 
 
