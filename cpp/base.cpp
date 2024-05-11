@@ -34,6 +34,14 @@ size_t Bejegyzes::getLenSzem()const{return telefon.getLenSzem();}               
 size_t Bejegyzes::getLenCeg()const{return telefon.getLenCeg();}                     //* visszaadja a ceges telefonszam hosszat
 size_t Bejegyzes::getLenVar()const{return std::to_string(varos).length();}          //* visszaadja a varos iranyito szam hosszat
 
+/* -------------------------------- SETTEREK -------------------------------- */
+void Bejegyzes::setVaros(unsigned int v){varos = v;}   //* beallitja a varos iranyito szamat
+void Bejegyzes::setHavi(unsigned int h){havi_dij = h;} //* beallitja a havi dijjat
+void Bejegyzes::setSzemTell(unsigned long int sz){telefon.setSzemTell(sz);} //* beallitja a szemelyes telefonszamot
+void Bejegyzes::setCegeTell(unsigned long int ce){telefon.setCegesTell(ce);} //* beallitja a ceges telefonszamot
+void Bejegyzes::setVezetek(const char* v, size_t lv){ember.setVezetek(v, lv);} //* beallitja a vezeteknevet
+void Bejegyzes::setKereszt(const char* k, size_t lk){ember.setKereszt(k, lk);} //* beallitja a keresztnevet
+void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* beallitja a becenevet
 
 /* ========================================================================== */
 //!                                TELEFONKONYV                                */

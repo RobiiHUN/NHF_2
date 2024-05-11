@@ -45,17 +45,17 @@ class Bejegyzes{
             size_t getLenVar()const;                            //* visszaadja a varos iranyito szam hosszat
 
 
-            //TODO settereket megcsinalni
+            
             /* -------------------------------- SETTEREK -------------------------------- */
-            void setVaros(unsigned int v){varos = v;}   //* beallitja a varos iranyito szamat
-            void setHavi(unsigned int h){havi_dij = h;} //* beallitja a havi dijjat
-            void setSzemTell(unsigned long int sz){telefon.setSzemTell(sz);} //* beallitja a szemelyes telefonszamot
-            void setCegeTell(unsigned long int ce){telefon.setCegesTell(ce);} //* beallitja a ceges telefonszamot
-            void setVezetek(const char* v, size_t lv){ember.setVezetek(v, lv);} //* beallitja a vezeteknevet
-            void setKereszt(const char* k, size_t lk){ember.setKereszt(k, lk);} //* beallitja a keresztnevet
-            void setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* beallitja a becenevet
+            void setVaros(unsigned int v);                      //* beallitja a varos iranyito szamat
+            void setHavi(unsigned int h);                       //* beallitja a havi dijjat
+            void setSzemTell(unsigned long int sz);             //* beallitja a szemelyes telefonszamot
+            void setCegeTell(unsigned long int ce);             //* beallitja a ceges telefonszamot
+            void setVezetek(const char* v, size_t lv);          //* beallitja a vezeteknevet
+            void setKereszt(const char* k, size_t lk);          //* beallitja a keresztnevet
+            void setBece(const char* b, size_t lb);             //* beallitja a becenevet
 
-
+            /* -------------------------------- KIIRATAS -------------------------------- */
             void bejegyzesKi()const;                            //* kiirja a bejegyzest
 
 };
@@ -100,8 +100,8 @@ class Telefonkonyv{
 
         void kiir() const;
 
+        /* ------------------------- FAJLBOL VALO FELTOLTES ------------------------- */
         void feltoltesTelefonkonyv(const std::string& filename);
-           //TODO megcsinalni a feltoltest
         
         Bejegyzes& Telefonykonyvkeres(const Bejegyzes& be);
             //TODO megcsinalni a keresest
