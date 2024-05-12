@@ -7,6 +7,7 @@
 
 
 
+
 /* -------------------------------------------------------------------------- */
 //!                               BEJEGYZES CLASS                              !//
 /* -------------------------------------------------------------------------- */
@@ -62,9 +63,14 @@ class Bejegyzes{
 
 
 
+
+
 /* ========================================================================== */
 //!                               TELEFONKONYV                               !//
 /* ========================================================================== */
+
+
+
 
 
 //TODO: tokeletesiteni
@@ -72,6 +78,8 @@ class Telefonkonyv{
     private:
         Bejegyzes* bejegyzesek;      //bejegyzesek tombje
         size_t meret;               //tomb merete
+
+        
         
     public:
         /* ---------------------- KONSTRUKTOR PARAMETER NELKUL ---------------------- */
@@ -85,6 +93,7 @@ class Telefonkonyv{
 
         /* ---------------------------- MERET VISSZADASA ---------------------------- */
         size_t getMeret()const;
+        Bejegyzes getBejegyzes(int i)const{return bejegyzesek[i];} //TODO tul index elleni vedelem
 
         /* ------------------------------- MASOLO CTOR ------------------------------ */
         Telefonkonyv(const Telefonkonyv& other);
@@ -106,7 +115,14 @@ class Telefonkonyv{
         Bejegyzes& Telefonykonyvkeres(const Bejegyzes& be);
             //TODO megcsinalni a keresest
 
+        
+
+
+      
+            
+
 };
+
 
 
 

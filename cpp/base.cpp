@@ -4,6 +4,7 @@
 #include <sstream>
 
 
+
 /* ========================================================================== */
 /*                                  BEJEGYZES                                 */
 /* ========================================================================== */
@@ -42,6 +43,8 @@ void Bejegyzes::setCegeTell(unsigned long int ce){telefon.setCegesTell(ce);} //*
 void Bejegyzes::setVezetek(const char* v, size_t lv){ember.setVezetek(v, lv);} //* beallitja a vezeteknevet
 void Bejegyzes::setKereszt(const char* k, size_t lk){ember.setKereszt(k, lk);} //* beallitja a keresztnevet
 void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* beallitja a becenevet
+
+
 
 /* ========================================================================== */
 //!                                TELEFONKONYV                                */
@@ -117,15 +120,15 @@ void Telefonkonyv::kiir() const {
 }
 
 
-
-
-
 //* -------------------------- EGY BEJEGYZES KIÍRÁSA ------------------------- *//
 
 
 
 void Bejegyzes::bejegyzesKi()const{
-    std::cout << "\033[1m"; //félkövér betű
+    
+    std::cout << "\e[1;34m"; //félkövér, kék betű
+    
+    
    
     int width = 20; // Oszlop szélessége
     std::cout << std::setw(ember.getLenVez()) <<std::left << ember.getVezetek() 
@@ -153,7 +156,7 @@ void Bejegyzes::bejegyzesKi()const{
 }
 
 
-
+/* -------------------- TELEFONKONYV FELTOLTESE A FAJLBOL ------------------- */
 
 void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
     std::ifstream fajl(fajlnev);
@@ -175,14 +178,13 @@ void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
         const char* keresztnev = keresztnev_str.c_str();
         const char* becenev = becenev_str.c_str();
 
+
+
         Ember ember(vezeteknev,vezeteknev_str.length(), keresztnev, keresztnev_str.length(), becenev,
             becenev_str.length());
-
         Telefon telefon(std::stol(telefon1), std::stol(telefon2));
         Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(jovedelem));
-        
-        
-        
         addBejegyzes(bejegyzes);
     }
 }
+

@@ -7,6 +7,7 @@
 #include "headers/base.hpp"
 #include "headers/test.hpp"
 #include "headers/ui.hpp"
+#include "headers/search_tree.hpp"
 
 
 
@@ -58,11 +59,24 @@ Bejegyzes bejegy2(ember2, tf3, 3455, 625);
 
 
 
+
 Telefonkonyv tk;
 tk.feltoltesTelefonkonyv("files/source.txt");
 ui.header();               //!tökéletesen működik
 tk.kiir();                //!tökéletesen működik
 //ui.menu();              //!tökéletesen működik
+
+
+tk.feltoltFa();
+std::cout << "Kereses: " << std::endl;
+std::cout << tk.keresesFa("Peter") << std::endl;
+
+
+
+
+
+
+
 
 
 
