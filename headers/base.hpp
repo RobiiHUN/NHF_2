@@ -57,7 +57,7 @@ class Bejegyzes{
             void setBece(const char* b, size_t lb);             //* beallitja a becenevet
 
             /* -------------------------------- KIIRATAS -------------------------------- */
-            void bejegyzesKi()const;                            //* kiirja a bejegyzest
+            void bejegyzesKi(int sorszam)const;                            //* kiirja a bejegyzest
 
 };
 
@@ -110,6 +110,15 @@ class Telefonkonyv{
 
         /* ------------------------- FAJLBOL VALO FELTOLTES ------------------------- */
         void feltoltesTelefonkonyv(const std::string& filename);
+
+        /* --------------------------------- MENTES --------------------------------- */
+        void mentesTelefonkonyv(const std::string& filename)const;
+
+        /* ------------------------------- TORLES -------------------------------- */
+        void bejTorles(size_t i);
+
+        /* ------------------------------- MODOSITAS ------------------------------- */
+        void modosit(size_t sorszam, const Bejegyzes& be);
         
         Bejegyzes& Telefonykonyvkeres(const Bejegyzes& be);
             //TODO megcsinalni a keresest

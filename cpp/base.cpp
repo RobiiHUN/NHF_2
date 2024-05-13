@@ -51,11 +51,12 @@ void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* bea
 /* ========================================================================== */
 /* ------------------------------ KONSTRUKTOROK ----------------------------- */
 
-Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){}
-Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {}
-Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {}
+Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){feltoltesTelefonkonyv("files/source.txt");}
+Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {feltoltesTelefonkonyv("files/source.txt");}
+Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {feltoltesTelefonkonyv("files/source.txt");}
 /* ------------------------------ DESTROKTOROK ------------------------------ */
 Telefonkonyv::~Telefonkonyv() {
+    mentesTelefonkonyv("files/source.txt");
     delete[] bejegyzesek;
 }
 /* ------------------------------- MASOLO CTOR ------------------------------ */
@@ -110,11 +111,13 @@ void Telefonkonyv::addBejegyzes(const Bejegyzes& bejegyzes) { //bejegyzes hozzaa
 }
 
 
+
+
 /* ------------------------------- KIIRATAS -------------------------------- */
 
 void Telefonkonyv::kiir() const { 
     for (size_t i = 0; i < meret; i++) {
-        bejegyzesek[i].bejegyzesKi();
+        bejegyzesek[i].bejegyzesKi(i + 1);
         
     }
 }
@@ -124,14 +127,17 @@ void Telefonkonyv::kiir() const {
 
 
 
-void Bejegyzes::bejegyzesKi()const{
+void Bejegyzes::bejegyzesKi(int sorszam)const{
     
     std::cout << "\e[1;34m"; //félkövér, kék betű
     
     
    
     int width = 20; // Oszlop szélessége
-    std::cout << std::setw(ember.getLenVez()) <<std::left << ember.getVezetek() 
+    std::cout 
+              << std::setw(5) <<std::left << sorszam
+              
+              << std::setw(ember.getLenVez()) <<std::left << ember.getVezetek() 
               << std::setw((width - ember.getLenVez())) << std::setfill(' ') << ""
 
               << std::setw(ember.getLenKer()) <<std::left << ember.getKereszt() 
@@ -188,3 +194,41 @@ void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
     }
 }
 
+/* ------------------------ TELEFONKONYV KIIRASA FAJLBA ----------------------- */
+void Telefonkonyv::mentesTelefonkonyv(const std::string& fajlnev) const {
+    std::ofstream fajl(fajlnev);
+    for (size_t i = 0; i < meret; ++i) {
+        fajl << bejegyzesek[i].getVezetek() << ";"
+             << bejegyzesek[i].getKereszt() << ";"
+             << bejegyzesek[i].getBece() << ";"
+             << bejegyzesek[i].getSzemTell() << ";"
+             << bejegyzesek[i].getCegeTell() << ";"
+             << bejegyzesek[i].getVaros() << ";"
+             << bejegyzesek[i].getHavi() << std::endl;
+    }
+}
+
+/* ---------------------------- BEJEGYZES TORLESE --------------------------- */
+void Telefonkonyv::bejTorles(size_t index) {
+    if (index < meret) {
+        Bejegyzes* uj = new Bejegyzes[meret - 1];
+        for (size_t i = 0; i < index; ++i) {
+            uj[i] = bejegyzesek[i];
+        }
+        for (size_t i = index + 1; i < meret; ++i) {
+            uj[i - 1] = bejegyzesek[i];
+        }
+        --meret;
+        delete[] bejegyzesek;
+        bejegyzesek = uj;
+    }
+}
+
+/* -------------------------- BEJEGYZES MODOSITASA -------------------------- */
+void Telefonkonyv::modosit(size_t sorszam, const Bejegyzes& bejegyzes) {
+    if (sorszam < meret) {
+        bejegyzesek[sorszam] = bejegyzes;
+    }
+        
+    
+}

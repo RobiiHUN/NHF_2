@@ -9,11 +9,11 @@
 #include "base.hpp"
 
 class UI{
-    Telefonkonyv tk;
+    Telefonkonyv& tk;
 
     public:
-        UI():tk(){menu();}
-        UI(Telefonkonyv t):tk(t){menu();}
+        
+        UI(Telefonkonyv& t):tk(t){menu();}
         
         void clearScreen();
         void header();
@@ -21,10 +21,12 @@ class UI{
         void menu();
         int bemenetCHECK(int, int);
         void bejegyzesBE();
+        void bejegyzesKI();
+       
 
-        //TODO sourve fájl frissitese
-        //TODO ID sorszám adása a bejegyzéseknek
-        //TODO torles
+
+        
+        
         //TODO modositas
         //TODO kereses
 

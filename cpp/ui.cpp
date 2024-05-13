@@ -15,7 +15,8 @@ void UI::header(){          //fejlec kiirasa
     std::endl(std::cout);
     std::cout << "\033[32m";
     int width = 20; // Oszlop szélessége
-    std::cout << std::setw(10) <<std::left <<"Vezeteknév" 
+    std::cout << std::setw(5) <<std::left << "ID"
+              << std::setw(10) <<std::left <<"Vezeteknév" 
               << std::setw(width - 10) << std::setfill(' ') << ""
 
               << std::setw(11) <<std::left << "Keresztnév" 
@@ -73,20 +74,21 @@ void UI::menu(){
         case 1:                 //bejegyzes hozzaadasa
             std::cout << "Bejegyzés hozzáadása" << std::endl;
             bejegyzesBE();
-            
             break;
         case 2:                 //bejegyzes torlese
             std::cout << "Bejegyzés törlése" << std::endl;
+            bejegyzesKI();
             break;
-        case 3:                 //bejegyzes modositasa
+        case 3:                 //TODO bejegyzes modositasa 
             std::cout << "Bejegyzés módosítása" << std::endl;
+            
             break;
         case 4:                 //bejegyzes listazasa
             std::cout << "Bejegyzések listázása" << std::endl;
             header();
             tk.kiir();
             break;
-        case 5:                 //kereses
+        case 5:                 //TODO kereses
             std::cout << "Keresés" << std::endl;
             break;
         case 6:                 //kilepes
@@ -100,11 +102,13 @@ void UI::menu(){
         }
     }
     
-    
+    }
 
 
 
-}
+
+/* --------------------------- BEJEGYZES BEKERESE --------------------------- */
+
 void UI::bejegyzesBE(){
     std::string vezeteknev;
     std::string keresztnev;
@@ -160,11 +164,19 @@ void UI::bejegyzesBE(){
         std::cout << "Hibás bemenet! Kérem próbálja újra később!" << std::endl;
     }
 
-
-    
-
 }
 
+
+/* ---------------------------- BEJEGYZES TORLESE --------------------------- */
+void UI::bejegyzesKI(){
+    std::cout << "Kérem adja meg a törlendő bejegyzés sorszámát: ";
+    int sorszam = bemenetCHECK(0, tk.getMeret());
+    tk.bejTorles(sorszam - 1);
+    std::cout << "A bejegyzés törölve!" << std::endl;
+}
+
+
+/* --------------------------- BEMENET ELLENORZES --------------------------- */
 
 int UI::bemenetCHECK(int min, int max){
     int valasztas = 0;

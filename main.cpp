@@ -19,8 +19,8 @@ int main(){
         test(); //teszt fuggveny csak akkor tortenik valami, ha a macro.h-ban a TEST makro true-n van
         
         Telefonkonyv tk;
-        tk.feltoltesTelefonkonyv("files/source.txt");
         UI ui(tk);
+        tk.kiir();
         
 
 
