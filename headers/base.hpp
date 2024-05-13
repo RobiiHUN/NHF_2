@@ -73,7 +73,6 @@ class Bejegyzes{
 
 
 
-//TODO: tokeletesiteni
 class Telefonkonyv{
     private:
         Bejegyzes* bejegyzesek;      //bejegyzesek tombje

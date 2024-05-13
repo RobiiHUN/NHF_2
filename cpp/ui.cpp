@@ -47,22 +47,126 @@ void UI::menu(){
     std::cout<<std::endl;            
     std::cout<<std::endl; 
 
-    std::cout << "1. Bejegyzés hozzáadása" << std::endl;
-    std::cout << "2. Bejegyzés törlése" << std::endl;
-    std::cout << "3. Bejegyzés módosítása" << std::endl;
-    std::cout << "4. Bejegyzések listázása" << std::endl;
-    std::cout << "5. Keresés" << std::endl;
-    std::cout << "6. Kilépés" << std::endl;
-    std::cout<<std::endl;            
-    std::cout<<std::endl; 
-    std::cout << "Válasszon menüpontot: (1-6)" << std::endl;
-    menuPontValasztas();
+    while (true)                         //menu ciklusa
+    {
+        /* ========================================================================== */
+        /*                                 MENUPONTOK                                 */
+        /* ========================================================================== */
+        std::cout<<std::endl;            
+        std::cout<<std::endl; 
+
+        std::cout << "1. Bejegyzés hozzáadása" << std::endl;
+        std::cout << "2. Bejegyzés törlése" << std::endl;
+        std::cout << "3. Bejegyzés módosítása" << std::endl;
+        std::cout << "4. Bejegyzések listázása" << std::endl;
+        std::cout << "5. Keresés" << std::endl;
+        std::cout << "6. Kilépés" << std::endl;
+        std::cout<<std::endl;            
+        std::cout<<std::endl; 
+        std::cout << "Válasszon menüpontot: (1-6)" << std::endl;
+
+
+        unsigned int valasztas = bemenetCHECK(1,6);
+
+        switch (valasztas)
+        {
+        case 1:                 //bejegyzes hozzaadasa
+            std::cout << "Bejegyzés hozzáadása" << std::endl;
+            bejegyzesBE();
+            
+            break;
+        case 2:                 //bejegyzes torlese
+            std::cout << "Bejegyzés törlése" << std::endl;
+            break;
+        case 3:                 //bejegyzes modositasa
+            std::cout << "Bejegyzés módosítása" << std::endl;
+            break;
+        case 4:                 //bejegyzes listazasa
+            std::cout << "Bejegyzések listázása" << std::endl;
+            header();
+            tk.kiir();
+            break;
+        case 5:                 //kereses
+            std::cout << "Keresés" << std::endl;
+            break;
+        case 6:                 //kilepes
+            clearScreen();
+            clearScreen();
+            std::cout << "Viszlát! :)" << std::endl;          
+            return;
+            break;
+        default:
+            break;
+        }
+    }
+    
+    
 
 
 
 }
+void UI::bejegyzesBE(){
+    std::string vezeteknev;
+    std::string keresztnev;
+    std::string becenev;
+    std::string szemelyes;
+    std::string ceges;
+    std::string irszam;
+    std::string havi;
+    
 
-int UI::menuPontValasztas(){
+    std::cout << "Kérem adja meg a vezetéknevét: ";
+    std::cin >> vezeteknev;
+    std::cout << std::endl;
+
+    std::cout << "Kérem adja meg a keresztnevét: ";
+    std::cin >> keresztnev;
+    std::cout << std::endl;
+
+    std::cout << "Kérem adja meg a becenevét: ";
+    std::cin >> becenev;
+    std::cout << std::endl;
+
+    std::cout << "Kérem adja meg a személyes telefonszámát: ";
+    std::cin >> szemelyes;
+    std::cout << std::endl;
+
+    std::cout << "Kérem adja meg a céges telefonszámát: ";
+    std::cin >> ceges;
+    std::cout << std::endl;
+
+    std::cout << "Kérem adja meg az irányítószámát: ";
+    std::cin >> irszam;
+    std::cout << std::endl;
+
+    std::cout << "Kérem adja meg a havi telefonszamlajat: ";
+    std::cin >> havi;
+    std::cout << std::endl;
+
+        const char* vezeteknev_c = vezeteknev.c_str();
+        const char* keresztnev_c = keresztnev.c_str();
+        const char* becenev_c = becenev.c_str();
+
+
+    if (vezeteknev.length() > 0 && keresztnev.length() > 0 && becenev.length() > 0 && szemelyes.length() > 0 && ceges.length() > 0 && irszam.length() > 0 && havi.length() > 0)
+    {
+        Ember ember(vezeteknev_c, vezeteknev.length(), keresztnev_c, keresztnev.length(), becenev_c, becenev.length());
+        Telefon telefon(std::stol(szemelyes), std::stol(ceges));
+        Bejegyzes bejegyzes(ember, telefon, std::stol(irszam), std::stol(havi));
+        tk.addBejegyzes(bejegyzes);
+
+    }else
+    {
+        std::cout << "Hibás bemenet! Kérem próbálja újra később!" << std::endl;
+    }
+
+
+    
+
+}
+
+
+int UI::bemenetCHECK(int min, int max){
     int valasztas = 0;
 
     while (true)
@@ -73,11 +177,11 @@ int UI::menuPontValasztas(){
             std::cin.clear();
             std::cin.ignore(1000, '\n');
             std::cout << "\x1b[1A\x1b[K";
-            std::cout << "Hibás bemenet! Kérem adjon meg egy számot 1 és 6 között!" << std::endl;
-        }else if (valasztas < 1 || valasztas > 6)
+            std::cout << "Hibás bemenet! Kérem adjon meg egy számot " << min << " és " << max << " között!" << std::endl;
+        }else if (valasztas < min || valasztas > max)
         {
             std::cout << "\x1b[1A\x1b[K";
-            std::cout << "Hibás bemenet! Kérem adjon meg egy számot 1 és 6 között!" << std::endl;
+            std::cout << "Hibás bemenet! Kérem adjon meg egy számot " << min << " és " << max << " között!" << std::endl;
         }else
         {
             return valasztas;

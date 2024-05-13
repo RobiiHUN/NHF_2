@@ -1,6 +1,6 @@
 #include "base.hpp"
 
-
+/* 
 struct Node {
     Bejegyzes data;
     Node* left;
@@ -58,6 +58,6 @@ public:
         return search(root, keresztnev);
     }
 };
-
+ */
 
 //TODO ez nem megy
