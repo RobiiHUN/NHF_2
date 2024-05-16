@@ -90,8 +90,9 @@ void UI::menu(){
             header();
             tk.kiir();
             break;
-        case 5:                 //TODO kereses
+        case 5:                 
             std::cout << "Keresés" << std::endl;
+            kereses();
             break;
         case 6:                 
             std::cout << "Factory Reset" << std::endl;
@@ -243,3 +244,30 @@ void UI::logo(){
     
     
 }       //logo kiirasa
+
+
+/* ------------------------------ KERESO FUGGVENY ------------------------------ */
+void UI::kereses(){
+    std::string keresett_str;
+    std::cout << "Kérem adja meg a keresett személy nevét: ";
+    std::cin >> keresett_str;
+    const char* keresett = keresett_str.c_str();
+    Bejegyzes *bej = tk.Telefonykonyvkeres(keresett);
+    if(bej != nullptr){
+        std::cout << "Szerepel ilyen nev a telefonkonyvben!" << std::endl;
+        for (size_t i = 0; i < tk.getMeret(); i++)
+        {
+            if (bej == &tk.getBejegyzes(i))
+            {
+                header();
+                //std::cout << i + 1 << ". ";
+                bej->bejegyzesKi(i);
+            }
+        }
+        
+
+    }
+    else{
+        std::cout << "Nincs" << std::endl;
+    }
+}       //kereso fuggveny

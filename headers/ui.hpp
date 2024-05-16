@@ -23,6 +23,7 @@ class UI{
         void bejegyzesBE();     //bejegyzes hozzaadasa
         void bejegyzesKI();     //bejegyzes torlese
         void bejegyzesMOD();    //bejegyzes modositasa
+        void kereses();
        
 
 

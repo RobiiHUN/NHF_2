@@ -54,17 +54,17 @@ void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* bea
 
 Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){
     feltoltesTelefonkonyv("files/source.txt");
-    rendezVezNev();
+    rendez();
     //rendezKerNev();
     }
 Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {
     feltoltesTelefonkonyv("files/source.txt");
-    rendezVezNev();
+    rendez();
     //rendezKerNev();
     }
 Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
     feltoltesTelefonkonyv("files/source.txt");
-    rendezVezNev();
+    rendez();
     //rendezKerNev();
     }
 /* ------------------------------ DESTROKTOROK ------------------------------ */
@@ -269,28 +269,53 @@ void Telefonkonyv::factoryReset(const std::string& forras, const std::string& ce
 
 /* -------------------------------- RENDEZES -------------------------------- */
 
-void Telefonkonyv::rendezVezNev() {
-    for (size_t i = 0; i < meret - 1; ++i) {
-        for (size_t j = i + 1; j < meret; ++j) {
-            if (strcmp(bejegyzesek[i].getVezetek(), bejegyzesek[j].getVezetek()) > 0) {
-                Bejegyzes tmp = bejegyzesek[i];
-                bejegyzesek[i] = bejegyzesek[j];
-                bejegyzesek[j] = tmp;
-            }else if(strcmp(bejegyzesek[i].getVezetek(), bejegyzesek[j].getVezetek()) == 0){
-                rendezKerNev();
-            }
-        }
+int Telefonkonyv::osszeBej(const Bejegyzes& a, const Bejegyzes& b)const {
+    int vezeteknevEredmeny = strcmp(a.getVezetek(), b.getVezetek());
+    if (vezeteknevEredmeny != 0) {
+        return vezeteknevEredmeny;
+    }
+
+    int keresztnevEredmeny = strcmp(a.getKereszt(), b.getKereszt());
+    if (keresztnevEredmeny != 0) {
+        return keresztnevEredmeny;
+    }
+
+    if (a.getVaros() < b.getVaros()) {
+        return b.getVaros();
+    }else{
+        return a.getVaros();
     }
 }
 
-void Telefonkonyv::rendezKerNev() {
+
+void Telefonkonyv::rendez(){
     for (size_t i = 0; i < meret - 1; ++i) {
         for (size_t j = i + 1; j < meret; ++j) {
-            if (strcmp(bejegyzesek[i].getKereszt(), bejegyzesek[j].getKereszt()) > 0) {
+            if (osszeBej(bejegyzesek[i], bejegyzesek[j]) > 0) {
                 Bejegyzes tmp = bejegyzesek[i];
                 bejegyzesek[i] = bejegyzesek[j];
                 bejegyzesek[j] = tmp;
             }
         }
     }
+
 }
+
+/* -------------------------------- KERESO -------------------------------- */
+
+Bejegyzes* Telefonkonyv::Telefonykonyvkeres(const char* vezeteknev){
+   int bal = 0;
+    int jobb = meret - 1;
+    while (bal <= jobb) {
+        int kozep = bal + (jobb - bal) / 2;
+        int eredmeny = strcmp(bejegyzesek[kozep].getVezetek(), vezeteknev);
+        if (eredmeny == 0)
+            return &bejegyzesek[kozep];
+        if (eredmeny < 0)
+            bal = kozep + 1;
+        else
+            jobb = kozep - 1;
+    }
+    return nullptr; 
+}
+

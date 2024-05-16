@@ -48,7 +48,7 @@
 class Ember{
         private:
             
-            char *vezeteknev;       //* nev eltarolasa din. tombben
+            char *vezeteknev;       //* nev eltarolasa din. tombben  //TODO: char* -> std::string
             size_t len_vez;         //* nev hossza
             char *keresztnev;       //* nev eltarolasa din. tombben
             size_t len_kereszt;     //* nev hossza

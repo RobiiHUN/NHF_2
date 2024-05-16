@@ -93,7 +93,7 @@ class Telefonkonyv{
 
         /* ---------------------------- MERET VISSZADASA ---------------------------- */
         size_t getMeret()const;
-        Bejegyzes getBejegyzes(int i)const{return bejegyzesek[i];} //TODO tul index elleni vedelem
+        Bejegyzes& getBejegyzes(int i)const{return bejegyzesek[i];} //TODO tul index elleni vedelem
 
         /* ------------------------------- MASOLO CTOR ------------------------------ */
         Telefonkonyv(const Telefonkonyv& other);
@@ -126,11 +126,11 @@ class Telefonkonyv{
 
         /* -------------------------------- RENDEZES -------------------------------- */
         
-        void rendezVezNev();        //rendezes vezeteknev szerint
-        void rendezKerNev();        //rendezes keresztnev szerint
+        int osszeBej(const Bejegyzes& a, const Bejegyzes& b)const; //osszehasonlit ket bejegyzest
+        void rendez();
 
         /* -------------------------------- KERESO -------------------------------- */
-        Bejegyzes& Telefonykonyvkeres(const Bejegyzes& be);
+        Bejegyzes* Telefonykonyvkeres(const char* vezeteknev);
             //TODO megcsinalni a keresest
 
         
