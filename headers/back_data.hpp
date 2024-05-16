@@ -48,12 +48,9 @@
 class Ember{
         private:
             
-            char *vezeteknev;       //* nev eltarolasa din. tombben  //TODO: char* -> std::string
-            size_t len_vez;         //* nev hossza
-            char *keresztnev;       //* nev eltarolasa din. tombben
-            size_t len_kereszt;     //* nev hossza
-            char *becenev;          //* nev eltarolasa din. tombben
-            size_t len_bece;        //* nev hossza
+            std::string vezeteknev;       //* nev eltarolasa din. tombben  //TODO: char* -> std::string
+            std::string keresztnev;       //* nev eltarolasa din. tombben
+            std::string becenev;          //* nev eltarolasa din. tombben
 
             
         
@@ -67,25 +64,26 @@ class Ember{
             Ember();
 
             /* ----------------------- KONSTRUKTOR PARAMETEREKKEL ----------------------- */
-            Ember(char *v, size_t lv, char *k, size_t lk, char *b, size_t lb);
-            Ember(const char* v, size_t lv, const char* k, size_t lk, const char* b, size_t lb);
+            Ember(std::string *v, std::string *k, std::string *b);
+            Ember(std::string v, std::string k, std::string b);
+
 
             /* -------------------------------- DESTRUKTOR ------------------------------ */
             ~Ember();
 
 
             /* -------------------------------- GETTEREK -------------------------------- */
-            const char* getVezetek()const;      //* visszaadja a vezeteknevet
+            std::string getVezetek()const;      //* visszaadja a vezeteknevet
             size_t getLenVez()const;            //* visszaadja a vezeteknev hosszat
-            const char* getKereszt()const;      //* visszaadja a keresztnevet
+            std::string getKereszt()const;      //* visszaadja a keresztnevet
             size_t getLenKer()const;            //* visszaadja a keresztnev hosszat
-            const char* getBece()const;         //* visszaadja a becenevet
+            std::string getBece()const;         //* visszaadja a becenevet
             size_t getLenBece()const;           //* visszaadja a becenev hosszat
 
         /* -------------------------------- SETTEREK -------------------------------- */
-        void setVezetek(const char* v, size_t lv);
-        void setKereszt(const char* k, size_t lk);
-        void setBece(const char* b, size_t lb);
+        void setVezetek(std::string v);
+        void setKereszt(std::string k);
+        void setBece(std::string b);
 
         /* ------------------------------- MASOLO CTOR ------------------------------ */
         Ember(const Ember& other);

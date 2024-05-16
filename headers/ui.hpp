@@ -12,8 +12,8 @@ class UI{
     Telefonkonyv& tk;
 
     public:
-        
-        UI(Telefonkonyv& t):tk(t){menu();}
+        UI();
+        UI(Telefonkonyv& t);
         
         void clearScreen();
         void header();

@@ -3,12 +3,12 @@
         {
             "type": "cppbuild",
             "label": "C/C++: clang build active file",
-            "command": "/usr/bin/clang",
+            "command": "/usr/bin/clang++",
             "args": [
                 "-fcolor-diagnostics",
                 "-fansi-escape-codes",
-                "-g",
-                "${file}",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/cpp/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
@@ -49,7 +49,8 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/cpp/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

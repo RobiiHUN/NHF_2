@@ -26,9 +26,9 @@ unsigned int Bejegyzes::getVaros()const{return varos;}                          
 unsigned int Bejegyzes::getHavi() const{return havi_dij;}                           //* visszaadja a havi dijjat
 unsigned long int Bejegyzes::getSzemTell()const{return telefon.getSzemTell();}      //* visszaadja a szemelyes telefonszamot
 unsigned long int Bejegyzes::getCegeTell()const{return telefon.getCegesTell();}     //* visszaadja a ceges telefonszamot
-const char* Bejegyzes::getVezetek()const{return ember.getVezetek();}                //* visszaadja a vezeteknevet
-const char* Bejegyzes::getKereszt()const{return ember.getKereszt();}                //* visszaadja a keresztnevet
-const char* Bejegyzes::getBece()const{return ember.getBece();}                      //* visszaadja a becenevet
+std::string Bejegyzes::getVezetek()const{return ember.getVezetek();}                //* visszaadja a vezeteknevet
+std::string Bejegyzes::getKereszt()const{return ember.getKereszt();}                //* visszaadja a keresztnevet
+std::string Bejegyzes::getBece()const{return ember.getBece();}                      //* visszaadja a becenevet
 size_t Bejegyzes::getLenVez()const{return ember.getLenVez();}                       //* visszaadja a vezeteknev hosszat
 size_t Bejegyzes::getLenKer()const{return ember.getLenKer();}                       //* visszaadja a keresztnev hosszat
 size_t Bejegyzes::getLenBece()const{return ember.getLenBece();}                     //* visszaadja a becenev hosszat
@@ -36,14 +36,18 @@ size_t Bejegyzes::getLenSzem()const{return telefon.getLenSzem();}               
 size_t Bejegyzes::getLenCeg()const{return telefon.getLenCeg();}                     //* visszaadja a ceges telefonszam hosszat
 size_t Bejegyzes::getLenVar()const{return std::to_string(varos).length();}          //* visszaadja a varos iranyito szam hosszat
 
+Bejegyzes &Telefonkonyv::getBejegyzes(int index)const{
+    return bejegyzesek[index];
+}
+
 /* -------------------------------- SETTEREK -------------------------------- */
 void Bejegyzes::setVaros(unsigned int v){varos = v;}   //* beallitja a varos iranyito szamat
 void Bejegyzes::setHavi(unsigned int h){havi_dij = h;} //* beallitja a havi dijjat
 void Bejegyzes::setSzemTell(unsigned long int sz){telefon.setSzemTell(sz);} //* beallitja a szemelyes telefonszamot
 void Bejegyzes::setCegeTell(unsigned long int ce){telefon.setCegesTell(ce);} //* beallitja a ceges telefonszamot
-void Bejegyzes::setVezetek(const char* v, size_t lv){ember.setVezetek(v, lv);} //* beallitja a vezeteknevet
-void Bejegyzes::setKereszt(const char* k, size_t lk){ember.setKereszt(k, lk);} //* beallitja a keresztnevet
-void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* beallitja a becenevet
+void Bejegyzes::setVezetek(std::string v){ember.setVezetek(v);} //* beallitja a vezeteknevet
+void Bejegyzes::setKereszt(std::string k){ember.setKereszt(k);} //* beallitja a keresztnevet
+void Bejegyzes::setBece(std::string b){ember.setBece(b);} //* beallitja a becenevet
 
 
 
@@ -52,24 +56,29 @@ void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* bea
 /* ========================================================================== */
 /* ------------------------------ KONSTRUKTOROK ----------------------------- */
 
-Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){
+Telefonkonyv::Telefonkonyv(){
+    bejegyzesek = new Bejegyzes[0];
+    meret = 0;
     feltoltesTelefonkonyv("files/source.txt");
     rendez();
-    //rendezKerNev();
+    
+    
     }
-Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {
+Telefonkonyv::Telefonkonyv(size_t size) {
+    bejegyzesek = new Bejegyzes[size];
+    meret = size;
     feltoltesTelefonkonyv("files/source.txt");
     rendez();
-    //rendezKerNev();
+    
     }
 Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
     feltoltesTelefonkonyv("files/source.txt");
     rendez();
-    //rendezKerNev();
+    
     }
 /* ------------------------------ DESTROKTOROK ------------------------------ */
 Telefonkonyv::~Telefonkonyv() {
-    mentesTelefonkonyv("files/source.txt");
+    //mentesTelefonkonyv("files/source.txt");
     delete[] bejegyzesek;
 }
 /* ------------------------------- MASOLO CTOR ------------------------------ */
@@ -87,40 +96,36 @@ size_t Telefonkonyv::getMeret()const{
 
 /* --------------------------- EGYENLOSEG OPERATOR -------------------------- */
 Telefonkonyv& Telefonkonyv::operator=(const Telefonkonyv& other) {
-    if (this != &other) {
-        delete[] bejegyzesek;
-        meret = other.meret;
-        bejegyzesek = new Bejegyzes[meret];
-        for (size_t i = 0; i < meret; ++i) {
-            bejegyzesek[i] = other.bejegyzesek[i];
-        }
+    if (this == &other) {
+        return *this;
+    }
+    delete[] bejegyzesek;
+    meret = other.meret;
+    bejegyzesek = new Bejegyzes[meret];
+    for (size_t i = 0; i < meret; ++i) {
+        bejegyzesek[i] = other.bejegyzesek[i];
     }
     return *this;
 }
 
 /* --------------------------- BEJEGYZES HOZZADASA -------------------------- */
 
-
-void Telefonkonyv::addBejegyzes(const Bejegyzes& bejegyzes) { //bejegyzes hozzaadasa a telefonkonyvhez
-       //ha a tomb tele van
-         
-        Bejegyzes* uj = new Bejegyzes[meret + 1]; 
-        for (size_t i = 0; i < meret; ++i) {
-            uj[i] = bejegyzesek[i];
-        }
-         
-        uj[meret].setVezetek(bejegyzes.getVezetek(), bejegyzes.getLenVez());
-        uj[meret].setKereszt(bejegyzes.getKereszt(), bejegyzes.getLenKer());
-        uj[meret].setBece(bejegyzes.getBece(), bejegyzes.getLenBece());
-        uj[meret].setSzemTell(bejegyzes.getSzemTell());
-        uj[meret].setCegeTell(bejegyzes.getCegeTell());
-        uj[meret].setVaros(bejegyzes.getVaros());
-        uj[meret].setHavi(bejegyzes.getHavi());
-        meret++;
-        delete[] bejegyzesek; 
-        bejegyzesek = uj;
-                  
+void Telefonkonyv::addBejegyzes(const Bejegyzes& bejegyzes) {
+    Bejegyzes* uj = new Bejegyzes[meret + 1];
+    for (size_t i = 0; i < meret; ++i) {
+        uj[i] = bejegyzesek[i];
+    }
+    uj[meret].setVezetek(bejegyzes.getVezetek());
+    uj[meret].setKereszt(bejegyzes.getKereszt());
+    uj[meret].setBece(bejegyzes.getBece());
+    uj[meret].setSzemTell(bejegyzes.getSzemTell());
+    uj[meret].setCegeTell(bejegyzes.getCegeTell());
+    uj[meret].setVaros(bejegyzes.getVaros());
+    uj[meret].setHavi(bejegyzes.getHavi());
     
+    ++meret;
+    delete[] bejegyzesek;
+    bejegyzesek = uj;
 }
 
 
@@ -183,7 +188,7 @@ void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
 
     while (std::getline(fajl, sor)) {
         std::stringstream ss(sor);
-        std::string vezeteknev_str, keresztnev_str, becenev_str, telefon1, telefon2, irsz, jovedelem;
+        std::string vezeteknev_str, keresztnev_str, becenev_str, telefon1, telefon2, irsz, havi_dij;
 
         std::getline(ss, vezeteknev_str, ';');
         std::getline(ss, keresztnev_str, ';');
@@ -191,18 +196,15 @@ void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
         std::getline(ss, telefon1, ';');
         std::getline(ss, telefon2, ';');
         std::getline(ss, irsz, ';');
-        std::getline(ss, jovedelem, ';');
+        std::getline(ss, havi_dij, ';');
 
-        const char* vezeteknev = vezeteknev_str.c_str();
-        const char* keresztnev = keresztnev_str.c_str();
-        const char* becenev = becenev_str.c_str();
+        
 
 
 
-        Ember ember(vezeteknev,vezeteknev_str.length(), keresztnev, keresztnev_str.length(), becenev,
-            becenev_str.length());
+        Ember ember(vezeteknev_str, keresztnev_str, becenev_str);
         Telefon telefon(std::stol(telefon1), std::stol(telefon2));
-        Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(jovedelem));
+        Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(havi_dij));
         addBejegyzes(bejegyzes);
     }
     
@@ -224,6 +226,10 @@ void Telefonkonyv::mentesTelefonkonyv(const std::string& fajlnev) const {
 
 /* ---------------------------- BEJEGYZES TORLESE --------------------------- */
 void Telefonkonyv::bejTorles(size_t index) {
+    if (index >= meret) {
+        std::cerr << "Hibás index: " << index << std::endl;
+        return;
+    }
     if (index < meret) {
         Bejegyzes* uj = new Bejegyzes[meret - 1];
         for (size_t i = 0; i < index; ++i) {
@@ -240,6 +246,11 @@ void Telefonkonyv::bejTorles(size_t index) {
 
 /* -------------------------- BEJEGYZES MODOSITASA -------------------------- */
 void Telefonkonyv::modosit(size_t sorszam, const Bejegyzes bejegyzes) {
+    
+    if (sorszam >= meret) {
+        std::cerr << "Hibás sorszám: " << sorszam << std::endl;
+        return;
+    }
     if (sorszam < meret) {
         bejegyzesek[sorszam] = bejegyzes;
     }
@@ -270,12 +281,12 @@ void Telefonkonyv::factoryReset(const std::string& forras, const std::string& ce
 /* -------------------------------- RENDEZES -------------------------------- */
 
 int Telefonkonyv::osszeBej(const Bejegyzes& a, const Bejegyzes& b)const {
-    int vezeteknevEredmeny = strcmp(a.getVezetek(), b.getVezetek());
+    int vezeteknevEredmeny = a.getVezetek().compare(b.getVezetek());
     if (vezeteknevEredmeny != 0) {
         return vezeteknevEredmeny;
     }
 
-    int keresztnevEredmeny = strcmp(a.getKereszt(), b.getKereszt());
+    int keresztnevEredmeny = a.getBece().compare(b.getBece());
     if (keresztnevEredmeny != 0) {
         return keresztnevEredmeny;
     }
@@ -303,12 +314,12 @@ void Telefonkonyv::rendez(){
 
 /* -------------------------------- KERESO -------------------------------- */
 
-Bejegyzes* Telefonkonyv::Telefonykonyvkeres(const char* vezeteknev){
+Bejegyzes* Telefonkonyv::Telefonykonyvkeres(std::string vezeteknev)const{
    int bal = 0;
     int jobb = meret - 1;
     while (bal <= jobb) {
         int kozep = bal + (jobb - bal) / 2;
-        int eredmeny = strcmp(bejegyzesek[kozep].getVezetek(), vezeteknev);
+        int eredmeny = vezeteknev.compare(bejegyzesek[kozep].getVezetek());
         if (eredmeny == 0)
             return &bejegyzesek[kozep];
         if (eredmeny < 0)

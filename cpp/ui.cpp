@@ -4,6 +4,9 @@
 
 void UI::clearScreen(){std::cout << "\033[2J\033[1;1H";}
 
+/* ------------------------------- KONSTRUKTOR ------------------------------ */
+UI::UI(Telefonkonyv& t):tk(t){menu();}
+
 /* ---------------------------- HEADER KIIRATASA ---------------------------- */
 void UI::header(){          //fejlec kiirasa
     clearScreen();    //toroljuk a kepernyot
@@ -164,14 +167,12 @@ void UI::bejegyzesBE(){
     std::cin >> havi;
     std::cout << std::endl;
 
-        const char* vezeteknev_c = vezeteknev.c_str();
-        const char* keresztnev_c = keresztnev.c_str();
-        const char* becenev_c = becenev.c_str();
+        
 
 
     if (vezeteknev.length() > 0 && keresztnev.length() > 0 && becenev.length() > 0 && szemelyes.length() > 0 && ceges.length() > 0 && irszam.length() > 0 && havi.length() > 0)
     {
-        Ember ember(vezeteknev_c, vezeteknev.length(), keresztnev_c, keresztnev.length(), becenev_c, becenev.length());
+        Ember ember(vezeteknev, keresztnev, becenev);
         Telefon telefon(std::stol(szemelyes), std::stol(ceges));
         Bejegyzes bejegyzes(ember, telefon, std::stol(irszam), std::stol(havi));
         tk.addBejegyzes(bejegyzes);
