@@ -61,13 +61,14 @@ void UI::menu(){
         std::cout << "3. Bejegyzés módosítása" << std::endl;
         std::cout << "4. Bejegyzések listázása" << std::endl;
         std::cout << "5. Keresés" << std::endl;
-        std::cout << "6. Kilépés" << std::endl;
+        std::cout << "6. Factory Reset" << std::endl;
+        std::cout << "7. Kilépés" << std::endl;
         std::cout<<std::endl;            
         std::cout<<std::endl; 
         std::cout << "Válasszon menüpontot: (1-6)" << std::endl;
 
 
-        unsigned int valasztas = bemenetCHECK(1,6);
+        unsigned int valasztas = bemenetCHECK(1,7);
 
         switch (valasztas)
         {
@@ -79,8 +80,9 @@ void UI::menu(){
             std::cout << "Bejegyzés törlése" << std::endl;
             bejegyzesKI();
             break;
-        case 3:                 //TODO bejegyzes modositasa 
+        case 3:                //bejegyzes modositasa
             std::cout << "Bejegyzés módosítása" << std::endl;
+            bejegyzesMOD();
             
             break;
         case 4:                 //bejegyzes listazasa
@@ -91,21 +93,35 @@ void UI::menu(){
         case 5:                 //TODO kereses
             std::cout << "Keresés" << std::endl;
             break;
-        case 6:                 //kilepes
+        case 6:                 
+            std::cout << "Factory Reset" << std::endl;
+            tk.factoryReset("files/source_backup.txt", "files/source.txt");
+            std::cout << "Az adatok visszaállítva! Viszlát!" << std::endl;
+            return;
+            break;
+        case 7:                 //kilepes
             clearScreen();
             clearScreen();
             std::cout << "Viszlát! :)" << std::endl;          
             return;
             break;
-        default:
-            break;
+        
         }
     }
     
     }
 
 
-
+/* -------------------------- BEJEGYZES MODOSITASA -------------------------- */
+void UI::bejegyzesMOD(){
+    std::cout << "Kérem adja meg a módosítandó bejegyzés sorszámát: ";
+    int sorszam = bemenetCHECK(0, tk.getMeret());
+    std::cout << "Kérem adja meg a módosítandó bejegyzés adatait: " << std::endl;
+    bejegyzesBE();
+    tk.modosit(sorszam - 1, tk.getBejegyzes(tk.getMeret() - 1));
+    tk.bejTorles(tk.getMeret() - 1);
+    std::cout << "A bejegyzés módosítva!" << std::endl;
+}
 
 /* --------------------------- BEJEGYZES BEKERESE --------------------------- */
 

@@ -20,14 +20,15 @@ class UI{
         void logo();
         void menu();
         int bemenetCHECK(int, int);
-        void bejegyzesBE();
-        void bejegyzesKI();
+        void bejegyzesBE();     //bejegyzes hozzaadasa
+        void bejegyzesKI();     //bejegyzes torlese
+        void bejegyzesMOD();    //bejegyzes modositasa
        
 
 
         
         
-        //TODO modositas
+        
         //TODO kereses
 
 

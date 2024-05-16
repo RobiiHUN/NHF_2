@@ -17,27 +17,14 @@
 
 int main(){
         test(); //teszt fuggveny csak akkor tortenik valami, ha a macro.h-ban a TEST makro true-n van
-        
         Telefonkonyv tk;
         UI ui(tk);
-        tk.kiir();
+
+
+        //TODO test program irasa
+        //TODO exeptions
+        //TODO .log file
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 return 0;
 }

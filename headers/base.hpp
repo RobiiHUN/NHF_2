@@ -8,6 +8,7 @@
 
 
 
+
 /* -------------------------------------------------------------------------- */
 //!                               BEJEGYZES CLASS                              !//
 /* -------------------------------------------------------------------------- */
@@ -109,17 +110,26 @@ class Telefonkonyv{
         void kiir() const;
 
         /* ------------------------- FAJLBOL VALO FELTOLTES ------------------------- */
-        void feltoltesTelefonkonyv(const std::string& filename);
+        void feltoltesTelefonkonyv(const std::string& fajlnev);
 
         /* --------------------------------- MENTES --------------------------------- */
-        void mentesTelefonkonyv(const std::string& filename)const;
+        void mentesTelefonkonyv(const std::string& fajlnev)const;
 
         /* ------------------------------- TORLES -------------------------------- */
         void bejTorles(size_t i);
 
         /* ------------------------------- MODOSITAS ------------------------------- */
-        void modosit(size_t sorszam, const Bejegyzes& be);
+        void modosit(size_t sorszam, const Bejegyzes be);
         
+        /* ------------------------------ FACTORY RESET ----------------------------- */
+        void factoryReset(const std::string& forras, const std::string& cel);
+
+        /* -------------------------------- RENDEZES -------------------------------- */
+        
+        void rendezVezNev();        //rendezes vezeteknev szerint
+        void rendezKerNev();        //rendezes keresztnev szerint
+
+        /* -------------------------------- KERESO -------------------------------- */
         Bejegyzes& Telefonykonyvkeres(const Bejegyzes& be);
             //TODO megcsinalni a keresest
 

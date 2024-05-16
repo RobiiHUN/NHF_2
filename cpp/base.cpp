@@ -2,6 +2,7 @@
 #include <string>   //stringhez
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 
 
@@ -51,9 +52,21 @@ void Bejegyzes::setBece(const char* b, size_t lb){ember.setBece(b, lb);} //* bea
 /* ========================================================================== */
 /* ------------------------------ KONSTRUKTOROK ----------------------------- */
 
-Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){feltoltesTelefonkonyv("files/source.txt");}
-Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {feltoltesTelefonkonyv("files/source.txt");}
-Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {feltoltesTelefonkonyv("files/source.txt");}
+Telefonkonyv::Telefonkonyv(): bejegyzesek(nullptr), meret(0){
+    feltoltesTelefonkonyv("files/source.txt");
+    rendezVezNev();
+    //rendezKerNev();
+    }
+Telefonkonyv::Telefonkonyv(size_t size) : bejegyzesek(new Bejegyzes[size]), meret(size) {
+    feltoltesTelefonkonyv("files/source.txt");
+    rendezVezNev();
+    //rendezKerNev();
+    }
+Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
+    feltoltesTelefonkonyv("files/source.txt");
+    rendezVezNev();
+    //rendezKerNev();
+    }
 /* ------------------------------ DESTROKTOROK ------------------------------ */
 Telefonkonyv::~Telefonkonyv() {
     mentesTelefonkonyv("files/source.txt");
@@ -192,6 +205,7 @@ void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
         Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(jovedelem));
         addBejegyzes(bejegyzes);
     }
+    
 }
 
 /* ------------------------ TELEFONKONYV KIIRASA FAJLBA ----------------------- */
@@ -225,10 +239,58 @@ void Telefonkonyv::bejTorles(size_t index) {
 }
 
 /* -------------------------- BEJEGYZES MODOSITASA -------------------------- */
-void Telefonkonyv::modosit(size_t sorszam, const Bejegyzes& bejegyzes) {
+void Telefonkonyv::modosit(size_t sorszam, const Bejegyzes bejegyzes) {
     if (sorszam < meret) {
         bejegyzesek[sorszam] = bejegyzes;
     }
-        
+     
+}
+
+void Telefonkonyv::factoryReset(const std::string& forras, const std::string& cel){
+    std::ifstream forr(forras, std::ios::binary);
+    std::ofstream target(cel, std::ios::binary);
+
+    if (!forr) {
+        std::cerr << "Nem lehet megnyitni a fajlt:  " << forras << std::endl;
+        return;
+    }
+
+    if (!target) {
+        std::cerr << "Nem lehet megnyitni a fajlt:  " << cel << std::endl;
+        return;
+    }
+
+    target << forr.rdbuf();
+
+    forr.close();
+    target.close();
     
+}
+
+/* -------------------------------- RENDEZES -------------------------------- */
+
+void Telefonkonyv::rendezVezNev() {
+    for (size_t i = 0; i < meret - 1; ++i) {
+        for (size_t j = i + 1; j < meret; ++j) {
+            if (strcmp(bejegyzesek[i].getVezetek(), bejegyzesek[j].getVezetek()) > 0) {
+                Bejegyzes tmp = bejegyzesek[i];
+                bejegyzesek[i] = bejegyzesek[j];
+                bejegyzesek[j] = tmp;
+            }else if(strcmp(bejegyzesek[i].getVezetek(), bejegyzesek[j].getVezetek()) == 0){
+                rendezKerNev();
+            }
+        }
+    }
+}
+
+void Telefonkonyv::rendezKerNev() {
+    for (size_t i = 0; i < meret - 1; ++i) {
+        for (size_t j = i + 1; j < meret; ++j) {
+            if (strcmp(bejegyzesek[i].getKereszt(), bejegyzesek[j].getKereszt()) > 0) {
+                Bejegyzes tmp = bejegyzesek[i];
+                bejegyzesek[i] = bejegyzesek[j];
+                bejegyzesek[j] = tmp;
+            }
+        }
+    }
 }
