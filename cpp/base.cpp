@@ -59,7 +59,18 @@ void Bejegyzes::setBece(std::string b){ember.setBece(b);} //* beallitja a becene
 Telefonkonyv::Telefonkonyv(){
     bejegyzesek = new Bejegyzes[0];
     meret = 0;
-    feltoltesTelefonkonyv("files/source.txt");
+    try
+    {
+        feltoltesTelefonkonyv("files/source.txt");
+    }
+    catch(const std::runtime_error& e)
+    {
+        std::cerr << e.what() << '\n';
+        factoryReset("files/source_backup.txt", "files/source.txt");
+        feltoltesTelefonkonyv("files/source.txt");
+    }
+    
+    
     rendez();
     
     
@@ -67,12 +78,30 @@ Telefonkonyv::Telefonkonyv(){
 Telefonkonyv::Telefonkonyv(size_t size) {
     bejegyzesek = new Bejegyzes[size];
     meret = size;
-    feltoltesTelefonkonyv("files/source.txt");
+    try
+    {
+        feltoltesTelefonkonyv("files/source.txt");
+    }
+    catch(const std::runtime_error& e)
+    {
+        std::cerr << e.what() << '\n';
+        factoryReset("files/source_backup.txt", "files/source.txt");
+        feltoltesTelefonkonyv("files/source.txt");
+    }
     rendez();
     
     }
 Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
-    feltoltesTelefonkonyv("files/source.txt");
+    try
+    {
+        feltoltesTelefonkonyv("files/source.txt");
+    }
+    catch(const std::runtime_error& e)
+    {
+        std::cerr << e.what() << '\n';
+        factoryReset("files/source_backup.txt", "files/source.txt");
+        feltoltesTelefonkonyv("files/source.txt");
+    }
     rendez();
     
     }
@@ -183,15 +212,15 @@ void Bejegyzes::bejegyzesKi(int sorszam)const{
 /* -------------------- TELEFONKONYV FELTOLTESE A FAJLBOL ------------------- */
 
 void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
-    try
-    {
+
         std::ifstream fajl(fajlnev);
         std::string sor;
         if (!fajl.is_open()) {
-            throw std::runtime_error("Nem lehet megnyitni a fajlt: " + fajlnev);
+            throw std::runtime_error("Nem lehet megnyitni a fajlt: " + fajlnev + "\n\n");
         }
-            
+        bool hiba = true;
         while (std::getline(fajl, sor)) {
+            hiba = false;
             std::stringstream ss(sor);
             std::string vezeteknev_str, keresztnev_str, becenev_str, telefon1, telefon2, irsz, havi_dij;
 
@@ -208,18 +237,11 @@ void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
             Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(havi_dij));
             addBejegyzes(bejegyzes);
         }
-    }
-    catch(const std::runtime_error& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    
-
-    
+        if (hiba)
+        {
+            throw std::runtime_error("A fajl ures: " + fajlnev + "\n\n");
+        }
+        
     
 }
 
@@ -271,17 +293,16 @@ void Telefonkonyv::modosit(size_t sorszam, const Bejegyzes bejegyzes) {
 }
 
 void Telefonkonyv::factoryReset(const std::string& forras, const std::string& cel){
+    
     std::ifstream forr(forras, std::ios::binary);
     std::ofstream target(cel, std::ios::binary);
 
     if (!forr) {
-        std::cerr << "Nem lehet megnyitni a fajlt:  " << forras << std::endl;
-        return;
+        throw std::runtime_error("Nem lehet megnyitni a fajlt:  " + forras + "\n\n");
     }
 
     if (!target) {
-        std::cerr << "Nem lehet megnyitni a fajlt:  " << cel << std::endl;
-        return;
+       throw std::runtime_error("Nem lehet megnyitni a fajlt:  " + forras + "\n\n");
     }
 
     target << forr.rdbuf();
@@ -359,33 +380,66 @@ Bejegyzes* Telefonkonyv::lin_keres(std::string keresett, int mod)const{
                 return &bejegyzesek[i];
             }
             break;
-        case 3: //!exeptionokat le kell kezelni
-            if (std::stoul(keresett) == bejegyzesek[i].getSzemTell())
+        case 3: 
+            try
             {
-                return &bejegyzesek[i];
+                unsigned long keres = std::stoul(keresett);
+                if (keres == bejegyzesek[i].getSzemTell())
+                {
+                    return &bejegyzesek[i];
+                }
             }
+            catch(const std::invalid_argument& e)
+            {
+                return nullptr;
+            }
+            
             break;
         case 4:
-            if (std::stoul(keresett) == bejegyzesek[i].getCegeTell())
+            try
             {
-                return &bejegyzesek[i];
+                unsigned long keres = std::stoul(keresett);
+                if (keres == bejegyzesek[i].getSzemTell())
+                {
+                    return &bejegyzesek[i];
+                }
             }
+            catch(const std::invalid_argument& e)
+            {
+                return nullptr;
+            }
+            
             break;
         case 5:
-            if (std::stoul(keresett) == bejegyzesek[i].getVaros())
+            try
             {
-                return &bejegyzesek[i];
+                unsigned long keres = std::stoul(keresett);
+                if (keres == bejegyzesek[i].getSzemTell())
+                {
+                    return &bejegyzesek[i];
+                }
             }
+            catch(const std::invalid_argument& e)
+            {
+                return nullptr;
+            }
+            
             break;
         case 6:
-            if (std::stoul(keresett) == bejegyzesek[i].getHavi())
+            try
             {
-                return &bejegyzesek[i];
+                unsigned long keres = std::stoul(keresett);
+                if (keres == bejegyzesek[i].getSzemTell())
+                {
+                    return &bejegyzesek[i];
+                }
             }
-            break;            
-        default:
-            break;
-        }
+            catch(const std::invalid_argument& e)
+            {
+                return nullptr;
+            }
+            
+            break;        }
     }
     return nullptr;
 }

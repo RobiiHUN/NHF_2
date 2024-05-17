@@ -101,8 +101,16 @@ void UI::menu(){
             break;
         case 6:                 
             std::cout << "Factory Reset" << std::endl;
-            tk.factoryReset("files/source_backup.txt", "files/source.txt");
-            std::cout << "Az adatok visszaállítva! Viszlát!" << std::endl;
+            try
+            {
+                tk.factoryReset("files/source_backup.txt", "files/source.txt");
+                std::cout << "Az adatok visszaállítva! Viszlát!" << std::endl;
+            }
+            catch(const std::exception& e)
+            {
+                std::cerr << e.what() << "Nem sikerült visszaállítani az adatokat!" << std::endl;
+            }
+            
             return;
             break;
         case 7:                 //kilepes
@@ -304,18 +312,7 @@ void UI::kereses(){
 
     }else{
         std::cout << "Nincs találat! :( " << std::endl;
-        
-        try      //! pelda 
-        {
-             log("Keresés sikertelen!");
-        }
-        catch(const std::runtime_error& e)
-        {
-            std::cerr << e.what() << "PELDA runtime"<< '\n';
-        }
-        catch(const std::exception& e){
-                std::cerr << e.what() << "PELDA"<< '\n';
-            }
+        log("Nincs találat!");
         
        
     }
