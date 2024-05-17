@@ -5,7 +5,7 @@
 
 
 #include "headers/base.hpp"
-//#include "headers/test.hpp"
+//#include "headers/test.hpp"  //TODO teszt
 #include "headers/ui.hpp"
 #include "headers/search_tree.hpp"
 
@@ -22,7 +22,9 @@ int main(){
                 
         //TODO test program irasa
         //TODO exeptions
-        //TODO .log file
+        //TODO dokumentacio
+
+
         
 
 return 0;

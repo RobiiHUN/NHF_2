@@ -112,7 +112,7 @@ class Telefonkonyv{
 
         /* ------------------------------- KIIRATAS -------------------------------- */
 
-        void kiir() const;
+        void kiir() const; //exception ha üres a tomb
 
         /* ------------------------- FAJLBOL VALO FELTOLTES ------------------------- */
         void feltoltesTelefonkonyv(const std::string& fajlnev);
@@ -121,7 +121,7 @@ class Telefonkonyv{
         void mentesTelefonkonyv(const std::string& fajlnev)const;
 
         /* ------------------------------- TORLES -------------------------------- */
-        void bejTorles(size_t i);
+        void bejTorles(size_t i); //exceptiont üres telefonkonyvre
 
         /* ------------------------------- MODOSITAS ------------------------------- */
         void modosit(size_t sorszam, const Bejegyzes be);
@@ -135,8 +135,9 @@ class Telefonkonyv{
         void rendez();
 
         /* -------------------------------- KERESO -------------------------------- */
-        Bejegyzes* Telefonykonyvkeres(std::string keresett)const;
-            //TODO megcsinalni a keresest
+        Bejegyzes* Telefonykonyvkeres(std::string kersett)const;
+        Bejegyzes* lin_keres(std::string kersett, int mod)const; //mod 1 - keresztnev, 2 - becenev, 3 - szem. tell.szam, 4 - ceg.tell.szam, 5 - varos, 6 - havi dij
+            
 
         
 

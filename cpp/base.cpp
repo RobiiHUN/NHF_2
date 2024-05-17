@@ -78,7 +78,7 @@ Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
     }
 /* ------------------------------ DESTROKTOROK ------------------------------ */
 Telefonkonyv::~Telefonkonyv() {
-    //mentesTelefonkonyv("files/source.txt");
+    mentesTelefonkonyv("files/source.txt");
     delete[] bejegyzesek;
 }
 /* ------------------------------- MASOLO CTOR ------------------------------ */
@@ -183,30 +183,43 @@ void Bejegyzes::bejegyzesKi(int sorszam)const{
 /* -------------------- TELEFONKONYV FELTOLTESE A FAJLBOL ------------------- */
 
 void Telefonkonyv::feltoltesTelefonkonyv(const std::string& fajlnev) {
-    std::ifstream fajl(fajlnev);
-    std::string sor;
+    try
+    {
+        std::ifstream fajl(fajlnev);
+        std::string sor;
+        if (!fajl.is_open()) {
+            throw std::runtime_error("Nem lehet megnyitni a fajlt: " + fajlnev);
+        }
+            
+        while (std::getline(fajl, sor)) {
+            std::stringstream ss(sor);
+            std::string vezeteknev_str, keresztnev_str, becenev_str, telefon1, telefon2, irsz, havi_dij;
 
-    while (std::getline(fajl, sor)) {
-        std::stringstream ss(sor);
-        std::string vezeteknev_str, keresztnev_str, becenev_str, telefon1, telefon2, irsz, havi_dij;
+            std::getline(ss, vezeteknev_str, ';');
+            std::getline(ss, keresztnev_str, ';');
+            std::getline(ss, becenev_str, ';');
+            std::getline(ss, telefon1, ';');
+            std::getline(ss, telefon2, ';');
+            std::getline(ss, irsz, ';');
+            std::getline(ss, havi_dij, ';');
 
-        std::getline(ss, vezeteknev_str, ';');
-        std::getline(ss, keresztnev_str, ';');
-        std::getline(ss, becenev_str, ';');
-        std::getline(ss, telefon1, ';');
-        std::getline(ss, telefon2, ';');
-        std::getline(ss, irsz, ';');
-        std::getline(ss, havi_dij, ';');
-
-        
-
-
-
-        Ember ember(vezeteknev_str, keresztnev_str, becenev_str);
-        Telefon telefon(std::stol(telefon1), std::stol(telefon2));
-        Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(havi_dij));
-        addBejegyzes(bejegyzes);
+            Ember ember(vezeteknev_str, keresztnev_str, becenev_str);
+            Telefon telefon(std::stol(telefon1), std::stol(telefon2));
+            Bejegyzes bejegyzes(ember, telefon, std::stol(irsz), std::stol(havi_dij));
+            addBejegyzes(bejegyzes);
+        }
     }
+    catch(const std::runtime_error& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
+
+    
     
 }
 
@@ -313,9 +326,8 @@ void Telefonkonyv::rendez(){
 }
 
 /* -------------------------------- KERESO -------------------------------- */
-
-Bejegyzes* Telefonkonyv::Telefonykonyvkeres(std::string vezeteknev)const{
-   int bal = 0;
+Bejegyzes* Telefonkonyv::Telefonykonyvkeres(std::string vezeteknev) const {
+    int bal = 0;
     int jobb = meret - 1;
     while (bal <= jobb) {
         int kozep = bal + (jobb - bal) / 2;
@@ -323,10 +335,57 @@ Bejegyzes* Telefonkonyv::Telefonykonyvkeres(std::string vezeteknev)const{
         if (eredmeny == 0)
             return &bejegyzesek[kozep];
         if (eredmeny < 0)
-            bal = kozep + 1;
-        else
             jobb = kozep - 1;
+        else
+            bal = kozep + 1;
     }
-    return nullptr; 
+    return nullptr;
 }
 
+Bejegyzes* Telefonkonyv::lin_keres(std::string keresett, int mod)const{
+    for (size_t i = 0; i < meret; i++)
+    {
+        switch (mod)
+        {
+        case 1:
+            if (keresett == bejegyzesek[i].getKereszt())
+            {
+                return &bejegyzesek[i];
+            }
+            break;
+        case 2:
+            if (keresett == bejegyzesek[i].getBece())
+            {
+                return &bejegyzesek[i];
+            }
+            break;
+        case 3: //!exeptionokat le kell kezelni
+            if (std::stoul(keresett) == bejegyzesek[i].getSzemTell())
+            {
+                return &bejegyzesek[i];
+            }
+            break;
+        case 4:
+            if (std::stoul(keresett) == bejegyzesek[i].getCegeTell())
+            {
+                return &bejegyzesek[i];
+            }
+            break;
+        case 5:
+            if (std::stoul(keresett) == bejegyzesek[i].getVaros())
+            {
+                return &bejegyzesek[i];
+            }
+            break;
+        case 6:
+            if (std::stoul(keresett) == bejegyzesek[i].getHavi())
+            {
+                return &bejegyzesek[i];
+            }
+            break;            
+        default:
+            break;
+        }
+    }
+    return nullptr;
+}

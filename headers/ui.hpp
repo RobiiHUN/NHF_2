@@ -12,7 +12,7 @@ class UI{
     Telefonkonyv& tk;
 
     public:
-        UI();
+        
         UI(Telefonkonyv& t);
         
         void clearScreen();
@@ -23,7 +23,9 @@ class UI{
         void bejegyzesBE();     //bejegyzes hozzaadasa
         void bejegyzesKI();     //bejegyzes torlese
         void bejegyzesMOD();    //bejegyzes modositasa
-        void kereses();
+        void kereses();         //kereses
+        void log(std::string); //log fileba iras
+        std::string ido();           //visszaadja a pontos időt másodpercig
        
 
 

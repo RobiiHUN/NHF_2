@@ -2,13 +2,14 @@
 
 /* ----------------------------- KIJELZO TORLESE ---------------------------- */
 
-void UI::clearScreen(){std::cout << "\033[2J\033[1;1H";}
+void UI::clearScreen(){std::cout << "\033[2J\033[1;1H"; log("Kijelző törölve!");}
 
 /* ------------------------------- KONSTRUKTOR ------------------------------ */
-UI::UI(Telefonkonyv& t):tk(t){menu();}
+UI::UI(Telefonkonyv& t):tk(t){menu(); log("UI sikeresen konstruálódott!");}
 
 /* ---------------------------- HEADER KIIRATASA ---------------------------- */
 void UI::header(){          //fejlec kiirasa
+    log("Header kiirva!");
     clearScreen();    //toroljuk a kepernyot
     std::cout<<"\033[1m"; //félkövér betű
     for (size_t i = 0; i < 100; i++)
@@ -46,8 +47,9 @@ void UI::header(){          //fejlec kiirasa
 /* ------------------------------ MENU KIIRASA ------------------------------ */
 
 void UI::menu(){
-    if (TESTELES) return;               //ha a TESTELES makro igaz, akkor nem fut le a menu
-    logo();                             //logo kiirasa      
+    if (TESTELES){log("A program TEST módban van. Kérem a log írásához, kapcsolja ki a TESTELES macrót!");return;} //ha a TESTELES makro igaz, akkor nem fut le a menu
+    logo();                                             //logo kiirasa 
+    log("Program elindult! Normál módban!");           //log fileba iras
     std::cout<<std::endl;            
     std::cout<<std::endl; 
 
@@ -68,7 +70,7 @@ void UI::menu(){
         std::cout << "7. Kilépés" << std::endl;
         std::cout<<std::endl;            
         std::cout<<std::endl; 
-        std::cout << "Válasszon menüpontot: (1-6)" << std::endl;
+        std::cout << "Válasszon menüpontot: (1-7)" << std::endl;
 
 
         unsigned int valasztas = bemenetCHECK(1,7);
@@ -118,6 +120,7 @@ void UI::menu(){
 
 /* -------------------------- BEJEGYZES MODOSITASA -------------------------- */
 void UI::bejegyzesMOD(){
+    log("Bejegyzés módosítása");
     std::cout << "Kérem adja meg a módosítandó bejegyzés sorszámát: ";
     int sorszam = bemenetCHECK(0, tk.getMeret());
     std::cout << "Kérem adja meg a módosítandó bejegyzés adatait: " << std::endl;
@@ -125,11 +128,13 @@ void UI::bejegyzesMOD(){
     tk.modosit(sorszam - 1, tk.getBejegyzes(tk.getMeret() - 1));
     tk.bejTorles(tk.getMeret() - 1);
     std::cout << "A bejegyzés módosítva!" << std::endl;
+    log("Bejegyzés módosítva!");
 }
 
 /* --------------------------- BEJEGYZES BEKERESE --------------------------- */
 
 void UI::bejegyzesBE(){
+    log("Bejegyzés hozzáadása");
     std::string vezeteknev;
     std::string keresztnev;
     std::string becenev;
@@ -181,22 +186,28 @@ void UI::bejegyzesBE(){
     {
         std::cout << "Hibás bemenet! Kérem próbálja újra később!" << std::endl;
     }
+    log("Bejegyzés hozzáadva!");
 
 }
 
 
 /* ---------------------------- BEJEGYZES TORLESE --------------------------- */
 void UI::bejegyzesKI(){
+    log("Bejegyzés törlése");
+
     std::cout << "Kérem adja meg a törlendő bejegyzés sorszámát: ";
     int sorszam = bemenetCHECK(0, tk.getMeret());
     tk.bejTorles(sorszam - 1);
     std::cout << "A bejegyzés törölve!" << std::endl;
+    
+    log("Bejegyzés törölve!");
 }
 
 
 /* --------------------------- BEMENET ELLENORZES --------------------------- */
 
 int UI::bemenetCHECK(int min, int max){
+    log("Bemenet ellenőrzése");
     int valasztas = 0;
 
     while (true)
@@ -208,12 +219,17 @@ int UI::bemenetCHECK(int min, int max){
             std::cin.ignore(1000, '\n');
             std::cout << "\x1b[1A\x1b[K";
             std::cout << "Hibás bemenet! Kérem adjon meg egy számot " << min << " és " << max << " között!" << std::endl;
+
+            log("Hibás bemenet!");
         }else if (valasztas < min || valasztas > max)
         {
             std::cout << "\x1b[1A\x1b[K";
             std::cout << "Hibás bemenet! Kérem adjon meg egy számot " << min << " és " << max << " között!" << std::endl;
+
+            log("Hibás bemenet!");
         }else
         {
+            log("Bemenet ellenőrizve!");
             return valasztas;
         }
     }
@@ -226,6 +242,8 @@ int UI::bemenetCHECK(int min, int max){
 /* ------------------------------ LOGO KIIRASA ------------------------------ */
 
 void UI::logo(){
+    log("Logo kiirva!");
+
     std::ifstream file("files/logo.txt");
     if (file.is_open())
     {
@@ -237,9 +255,12 @@ void UI::logo(){
         }
         std::cout << "\033[0m";
         file.close();
+
+        log("Logo kiirva!");
     }
     else
     {
+        log("Logo kiirasa sikertelen! Nem található fájl!");
         std::cout << "Nem sikerult megnyitni a logo fajlt!" << std::endl;
     }
     
@@ -249,26 +270,76 @@ void UI::logo(){
 
 /* ------------------------------ KERESO FUGGVENY ------------------------------ */
 void UI::kereses(){
+    log("Keresés");
+    tk.mentesTelefonkonyv("../files/source.txt");
     std::string keresett_str;
-    std::cout << "Kérem adja meg a keresett személy nevét: ";
+    std::cout << "Kérem adja meg a keresett adatot: ";
     std::cin >> keresett_str;
-    const char* keresett = keresett_str.c_str();
-    Bejegyzes *bej = tk.Telefonykonyvkeres(keresett);
+    Bejegyzes *bej = tk.Telefonykonyvkeres(keresett_str);
+    
+    if (bej == nullptr){        //TODO ez nem felele meg az OOP-nak
+        for (size_t i = 1; i < 7; i++)
+        {
+            bej = tk.lin_keres(keresett_str, i);
+            if (bej != nullptr)
+            {
+                break;
+            }
+        }
+        
+    }
     if(bej != nullptr){
-        std::cout << "Szerepel ilyen nev a telefonkonyvben!" << std::endl;
+        std::cout << "Szerepel ilyen adat a telefonkonyvben!" << std::endl;
+        log("Keresés sikeres!");
         for (size_t i = 0; i < tk.getMeret(); i++)
         {
             if (bej == &tk.getBejegyzes(i))
             {
                 header();
-                //std::cout << i + 1 << ". ";
                 bej->bejegyzesKi(i);
+                
             }
         }
         
 
+    }else{
+        std::cout << "Nincs találat! :( " << std::endl;
+        
+        try      //! pelda 
+        {
+             log("Keresés sikertelen!");
+        }
+        catch(const std::runtime_error& e)
+        {
+            std::cerr << e.what() << "PELDA runtime"<< '\n';
+        }
+        catch(const std::exception& e){
+                std::cerr << e.what() << "PELDA"<< '\n';
+            }
+        
+       
     }
-    else{
-        std::cout << "Nincs" << std::endl;
+} 
+
+/* -------------------------------- LOG FILE -------------------------------- */
+
+void UI::log(std::string log){
+    try {
+        std::ofstream file("files/log.log");
+        file << ido() << " ==== "<< log << std::endl;
+        file.close();
+        } catch (const std::exception& e) {
+            std::cerr << e.what() << "Nem sikerült megnyitni a logot!" << std::endl;
+       
     }
-}       //kereso fuggveny
+}
+
+std::string UI::ido(){
+    time_t jelenlegi_ido = time(0);
+    tm *ltm = localtime(&jelenlegi_ido);
+    std::string ido = std::to_string(1900 + ltm->tm_year) + 
+        "." + std::to_string(1 + ltm->tm_mon) + "." + std::to_string(ltm->tm_mday) + 
+            "-" + std::to_string(ltm->tm_hour) + ":" + std::to_string(ltm->tm_min) + 
+                ":" + std::to_string(ltm->tm_sec);
+    return ido;
+}
