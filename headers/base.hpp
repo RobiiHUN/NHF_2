@@ -122,8 +122,7 @@ class Telefonkonyv{
         void mentesTelefonkonyv(const std::string& fajlnev)const;
 
         /* ------------------------------- TORLES -------------------------------- */
-        void bejTorles(size_t i); //exceptiont üres telefonkonyvre
-
+        void bejTorles(size_t i); 
         /* ------------------------------- MODOSITAS ------------------------------- */
         void modosit(size_t sorszam, const Bejegyzes be);
         
@@ -132,7 +131,7 @@ class Telefonkonyv{
 
         /* -------------------------------- RENDEZES -------------------------------- */
         
-        int osszeBej(const Bejegyzes& a, const Bejegyzes& b)const; //osszehasonlit ket bejegyzest
+        int osszeBej(const Bejegyzes& a, const Bejegyzes& b)const; 
         void rendez();
 
         /* -------------------------------- KERESO -------------------------------- */
