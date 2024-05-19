@@ -1,4 +1,5 @@
 #include "../headers/back_data.hpp"
+#include "../headers/memtrace.h"
 
 
 void clearScreen(){std::cout << "\033[2J\033[1;1H";}
@@ -74,7 +75,7 @@ void Ember::setBece(std::string b){
 
 /* ------------------------------ KONTRUKTOROK ------------------------------ */
 
-Telefon::Telefon(){szemelyes = 100;business = 0;}   //*konstruktor parameter nelkul
+Telefon::Telefon(){szemelyes = 0;business = 0;}   //*konstruktor parameter nelkul
 Telefon::Telefon(unsigned long int sz, unsigned long int bu): szemelyes(sz), business(bu){          //*konstruktor parameterekkel
                 }
 

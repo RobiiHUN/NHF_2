@@ -1,4 +1,5 @@
 #include "../headers/ui.hpp"
+#include "../headers/memtrace.h"
 
 /* ----------------------------- KIJELZO TORLESE ---------------------------- */
 
@@ -66,14 +67,13 @@ void UI::menu(){
         std::cout << "3. Bejegyzés módosítása" << std::endl;
         std::cout << "4. Bejegyzések listázása" << std::endl;
         std::cout << "5. Keresés" << std::endl;
-        std::cout << "6. Factory Reset" << std::endl;
-        std::cout << "7. Kilépés" << std::endl;
+        std::cout << "6. Kilépés" << std::endl;
         std::cout<<std::endl;            
         std::cout<<std::endl; 
-        std::cout << "Válasszon menüpontot: (1-7)" << std::endl;
+        std::cout << "Válasszon menüpontot: (1-6)" << std::endl;
 
 
-        unsigned int valasztas = bemenetCHECK(1,7);
+        unsigned int valasztas = bemenetCHECK(1,6);
 
         switch (valasztas)
         {
@@ -99,21 +99,7 @@ void UI::menu(){
             std::cout << "Keresés" << std::endl;
             kereses();
             break;
-        case 6:                 
-            std::cout << "Factory Reset" << std::endl;
-            try
-            {
-                tk.factoryReset("files/source_backup.txt", "files/source.txt");
-                std::cout << "Az adatok visszaállítva! Viszlát!" << std::endl;
-            }
-            catch(const std::exception& e)
-            {
-                std::cerr << e.what() << "Nem sikerült visszaállítani az adatokat!" << std::endl;
-            }
-            
-            return;
-            break;
-        case 7:                 //kilepes
+        case 6:                 //kilepes
             clearScreen();
             clearScreen();
             std::cout << "Viszlát! :)" << std::endl;          
@@ -186,9 +172,19 @@ void UI::bejegyzesBE(){
     if (vezeteknev.length() > 0 && keresztnev.length() > 0 && becenev.length() > 0 && szemelyes.length() > 0 && ceges.length() > 0 && irszam.length() > 0 && havi.length() > 0)
     {
         Ember ember(vezeteknev, keresztnev, becenev);
-        Telefon telefon(std::stol(szemelyes), std::stol(ceges));
-        Bejegyzes bejegyzes(ember, telefon, std::stol(irszam), std::stol(havi));
-        tk.addBejegyzes(bejegyzes);
+        try
+        {
+            Telefon telefon(std::stol(szemelyes), std::stol(ceges));
+            Bejegyzes bejegyzes(ember, telefon, std::stol(irszam), std::stol(havi));
+            tk.addBejegyzes(bejegyzes);
+             
+        }
+        catch(const std::invalid_argument& i )
+        {
+            std::cout << "Hibás bemenet! Kérem próbálja újra később!" << std::endl;
+        }
+        
+        
 
     }else
     {
@@ -250,6 +246,7 @@ int UI::bemenetCHECK(int min, int max){
 /* ------------------------------ LOGO KIIRASA ------------------------------ */
 
 void UI::logo(){
+    
     log("Logo kiirva!");
 
     std::ifstream file("files/logo.txt");
@@ -266,11 +263,7 @@ void UI::logo(){
 
         log("Logo kiirva!");
     }
-    else
-    {
-        log("Logo kiirasa sikertelen! Nem található fájl!");
-        std::cout << "Nem sikerult megnyitni a logo fajlt!" << std::endl;
-    }
+    
     
     
 }       //logo kiirasa
@@ -285,7 +278,7 @@ void UI::kereses(){
     std::cin >> keresett_str;
     Bejegyzes *bej = tk.Telefonykonyvkeres(keresett_str);
     
-    if (bej == nullptr){        //TODO ez nem felele meg az OOP-nak
+    if (bej == nullptr){        //TODO ezt atirni 2 esetre, hogy ne legyen ennyi case
         for (size_t i = 1; i < 7; i++)
         {
             bej = tk.lin_keres(keresett_str, i);
@@ -325,6 +318,7 @@ void UI::log(std::string log){
         std::ofstream file("files/log.log");
         file << ido() << " ==== "<< log << std::endl;
         file.close();
+       
         } catch (const std::exception& e) {
             std::cerr << e.what() << "Nem sikerült megnyitni a logot!" << std::endl;
        

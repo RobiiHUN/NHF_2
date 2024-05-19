@@ -59,6 +59,7 @@
 # include "memtrace.h"
 #endif
 
+
 // Két makró az egyes tesztek elé és mögé:
 // A két makró a kapcsos zárójelekkel egy új blokkot hoz létre, amiben
 // a nevek lokálisak, így elkerülhető a névütközés.

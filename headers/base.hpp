@@ -3,6 +3,7 @@
 
 #include "back_data.hpp"
 #include <iomanip>  //a tablazathoz kell
+#include "memtrace.h"
 
 
 

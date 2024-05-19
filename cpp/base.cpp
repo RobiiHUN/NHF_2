@@ -1,8 +1,10 @@
 #include "../headers/base.hpp"
-#include <string>   //stringhez
+//#include <string>   //stringhez
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "../headers/memtrace.h"
+
 
 
 
@@ -36,9 +38,7 @@ size_t Bejegyzes::getLenSzem()const{return telefon.getLenSzem();}               
 size_t Bejegyzes::getLenCeg()const{return telefon.getLenCeg();}                     //* visszaadja a ceges telefonszam hosszat
 size_t Bejegyzes::getLenVar()const{return std::to_string(varos).length();}          //* visszaadja a varos iranyito szam hosszat
 
-Bejegyzes &Telefonkonyv::getBejegyzes(int index)const{
-    return bejegyzesek[index];
-}
+
 
 /* -------------------------------- SETTEREK -------------------------------- */
 void Bejegyzes::setVaros(unsigned int v){varos = v;}   //* beallitja a varos iranyito szamat
@@ -65,7 +65,7 @@ Telefonkonyv::Telefonkonyv(){
     }
     catch(const std::runtime_error& e)
     {
-        std::cerr << e.what() << '\n';
+        
         factoryReset("files/source_backup.txt", "files/source.txt");
         feltoltesTelefonkonyv("files/source.txt");
     }
@@ -75,67 +75,29 @@ Telefonkonyv::Telefonkonyv(){
     
     
     }
-Telefonkonyv::Telefonkonyv(size_t size) {
-    bejegyzesek = new Bejegyzes[size];
-    meret = size;
-    try
-    {
-        feltoltesTelefonkonyv("files/source.txt");
-    }
-    catch(const std::runtime_error& e)
-    {
-        std::cerr << e.what() << '\n';
-        factoryReset("files/source_backup.txt", "files/source.txt");
-        feltoltesTelefonkonyv("files/source.txt");
-    }
-    rendez();
-    
-    }
-Telefonkonyv::Telefonkonyv(Bejegyzes* b, size_t m) : bejegyzesek(b), meret(m) {
-    try
-    {
-        feltoltesTelefonkonyv("files/source.txt");
-    }
-    catch(const std::runtime_error& e)
-    {
-        std::cerr << e.what() << '\n';
-        factoryReset("files/source_backup.txt", "files/source.txt");
-        feltoltesTelefonkonyv("files/source.txt");
-    }
-    rendez();
-    
-    }
+
+
+   
 /* ------------------------------ DESTROKTOROK ------------------------------ */
 Telefonkonyv::~Telefonkonyv() {
     mentesTelefonkonyv("files/source.txt");
     delete[] bejegyzesek;
 }
-/* ------------------------------- MASOLO CTOR ------------------------------ */
-Telefonkonyv::Telefonkonyv(const Telefonkonyv& other) : bejegyzesek(new Bejegyzes[other.meret]), meret(other.meret) {
-    for (size_t i = 0; i < meret; ++i) {
-        bejegyzesek[i] = other.bejegyzesek[i];
-    }
-}
+
 
 /* -------------------------------- GETTEREK -------------------------------- */
 size_t Telefonkonyv::getMeret()const{
     return meret;
 }
 
-
-/* --------------------------- EGYENLOSEG OPERATOR -------------------------- */
-Telefonkonyv& Telefonkonyv::operator=(const Telefonkonyv& other) {
-    if (this == &other) {
-        return *this;
+Bejegyzes &Telefonkonyv::getBejegyzes(int index)const{      
+    if (index > meret)
+    {
+        throw "Ez kicsit sok lesz, nem?";
     }
-    delete[] bejegyzesek;
-    meret = other.meret;
-    bejegyzesek = new Bejegyzes[meret];
-    for (size_t i = 0; i < meret; ++i) {
-        bejegyzesek[i] = other.bejegyzesek[i];
-    }
-    return *this;
+    return bejegyzesek[index];
 }
+
 
 /* --------------------------- BEJEGYZES HOZZADASA -------------------------- */
 
@@ -174,7 +136,7 @@ void Telefonkonyv::kiir() const {
 
 
 
-void Bejegyzes::bejegyzesKi(int sorszam)const{
+void Bejegyzes::bejegyzesKi(int sorszam)const{      //nem dohat exception-t mert mindig csak a max meretig fut
     
     std::cout << "\e[1;34m"; //félkövér, kék betű
     
@@ -292,8 +254,14 @@ void Telefonkonyv::modosit(size_t sorszam, const Bejegyzes bejegyzes) {
      
 }
 
+/* ------------------------------ FACTORY RESET ----------------------------- */
+
 void Telefonkonyv::factoryReset(const std::string& forras, const std::string& cel){
-    
+
+
+    std::ofstream celFile(cel, std::ios::trunc);
+    celFile.close();
+
     std::ifstream forr(forras, std::ios::binary);
     std::ofstream target(cel, std::ios::binary);
 
@@ -302,7 +270,7 @@ void Telefonkonyv::factoryReset(const std::string& forras, const std::string& ce
     }
 
     if (!target) {
-       throw std::runtime_error("Nem lehet megnyitni a fajlt:  " + forras + "\n\n");
+       throw std::runtime_error("Nem lehet megnyitni a fajlt:  " + cel + "\n\n");
     }
 
     target << forr.rdbuf();
