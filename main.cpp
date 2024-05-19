@@ -28,14 +28,10 @@ int main(){
         catch(const std::runtime_error& e)
         {
                 std::cerr << e.what() << "A program nem fut le, mert nem létezik se a source sem a backup file! Kösz, hello!"<< '\n';
-        }catch(const std::exception& e)
-        {
-                std::cerr << e.what() << "ERORR 404" <<'\n'; 
         }
         
         
 
-        //TODO dokumentacio
 
 
         

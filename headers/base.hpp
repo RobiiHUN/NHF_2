@@ -2,7 +2,7 @@
 #define BASE_HPP
 
 #include "back_data.hpp"
-#include <iomanip>  //a tablazathoz kell
+#include <iomanip>  
 #include "memtrace.h"
 
 
@@ -99,7 +99,7 @@ class Telefonkonyv{
 
         /* ---------------------------- MERET VISSZADASA ---------------------------- */
         size_t getMeret()const;
-        Bejegyzes& getBejegyzes(int i)const; //TODO tul index elleni vedelem
+        Bejegyzes& getBejegyzes(int i)const; 
 
         /* ------------------------------- MASOLO CTOR ------------------------------ */
         Telefonkonyv(const Telefonkonyv& other);

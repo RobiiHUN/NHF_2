@@ -142,27 +142,33 @@ void Bejegyzes::bejegyzesKi(int sorszam)const{      //nem dohat exception-t mert
     
     
    
-    int width = 20; // Oszlop szélessége
+    int szelesseg = 20; // Oszlop szélessége
     std::cout 
               << std::setw(5) <<std::left << sorszam
               
               << std::setw(ember.getLenVez()) <<std::left << ember.getVezetek() 
-              << std::setw((width - ember.getLenVez())) << std::setfill(' ') << ""
+              << std::setw((szelesseg - ember.getLenVez())) << std::setfill(' ') << ""
 
               << std::setw(ember.getLenKer()) <<std::left << ember.getKereszt() 
-              << std::setw(width - ember.getLenKer()  - 1) << std::setfill(' ') << ""
+              << std::setw(szelesseg - ember.getLenKer()  - 1) << std::setfill(' ') << ""
               <<"\033[0m"
 
               << std::setw(ember.getLenBece()) <<std::left << ember.getBece() 
-              << std::setw(width - ember.getLenBece()) << std::setfill(' ') << ""
+              << std::setw(szelesseg - ember.getLenBece()) << std::setfill(' ') << ""
 
               << "+ "<< std::setw(telefon.getLenSzem()) <<std::left  << telefon.getSzemTell() 
-              << std::setw(width - telefon.getLenSzem() - 2) << std::setfill(' ') << ""
+              << std::setw(szelesseg - telefon.getLenSzem()) << std::setfill(' ') << ""
+
+              << "+ "<< std::setw(telefon.getLenCeg()) <<std::left  << telefon.getCegesTell() 
+              << std::setw(szelesseg - telefon.getLenCeg()) << std::setfill(' ') << ""
+
+              << std::setw(std::to_string(havi_dij).length()) <<std::left  << havi_dij  << " Ft"
+              << std::setw(szelesseg - std::to_string(havi_dij).length() - 3) << std::setfill(' ') << ""
 
               << std::setw(std::to_string(varos).length()) <<std::left << varos 
               << std::endl;
     std::cout << "\033[90m";
-    for (size_t i = 0; i < 100; i++)
+    for (size_t i = 0; i < 140; i++)
     {
         std::cout << "-";
     }

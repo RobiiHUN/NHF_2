@@ -13,31 +13,37 @@ void UI::header(){          //fejlec kiirasa
     log("Header kiirva!");
     clearScreen();    //toroljuk a kepernyot
     std::cout<<"\033[1m"; //félkövér betű
-    for (size_t i = 0; i < 100; i++)
+    for (size_t i = 0; i < 140; i++)
     {
         std::cout << "=";
     }
     std::endl(std::cout);
     std::cout << "\033[32m";
-    int width = 20; // Oszlop szélessége
+    
     std::cout << std::setw(5) <<std::left << "ID"
               << std::setw(10) <<std::left <<"Vezeteknév" 
-              << std::setw(width - 10) << std::setfill(' ') << ""
+              << std::setw(10) << std::setfill(' ') << ""
 
               << std::setw(11) <<std::left << "Keresztnév" 
-              << std::setw(width - 11) << std::setfill(' ') << ""
+              << std::setw(9) << std::setfill(' ') << ""
 
               << std::setw(7) <<std::left << "Becenév"
-              << std::setw(width - 7) << std::setfill(' ') << ""
+              << std::setw(13) << std::setfill(' ') << ""
 
               << std::setw(14) <<std::left << "Sz.telefonszám"
-              << std::setw(width - 14) << std::setfill(' ') << ""
+              << std::setw(8) << std::setfill(' ') << ""
+
+              << std::setw(10) <<std::left << "C. telefon"
+              << std::setw(12) << std::setfill(' ') << ""
+              
+              << std::setw(8) <<std::left << "Havi-díj"
+              << std::setw(12) << std::setfill(' ') << ""
 
               << std::setw(5) <<std::left << "Város" 
               << std::endl;
 
     std::cout << "\033[0m";
-    for (size_t i = 0; i < 100; i++)
+    for (size_t i = 0; i < 140; i++)
     {
         std::cout << "=";
     }
