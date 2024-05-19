@@ -117,6 +117,5 @@ class Telefon{
 
 
 
-void clearScreen();
 
 #endif
