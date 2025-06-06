@@ -1,199 +1,137 @@
-# HÁZI FELADAT
+# 📞 Telefonkönyv — Programozás Alapjai 2.
+### 📝 Házi Feladat Dokumentáció · 2024.05.18
 
-# Programozás alapjai 2.
+---
 
-# Dokumentáció
+## 📚 Tartalomjegyzék
 
-# 2024.05. 18
+- [📌 Feladat](#-feladat)
+- [🛠️ Feladatspecifikáció](#️-feladatspecifikáció)
+- [📋 Pontosított feladatspecifikáció](#-pontosított-feladatspecifikáció)
+- [⚙️ Algoritmusok és függvények](#️-algoritmusok-és-függvények)
+- [🖥️ A program kezelőfelülete](#-a-program-kezelőfelülete)
+- [🔧 A program főbb funkciói](#-a-program-főbb-funkciói)
+- [🚀 Futtatás](#-futtatás)
+- [💬 Megjegyzés](#-megjegyzés)
 
+---
 
-## Tartalomjegyzék
+## 📌 Feladat
 
-- Feladat
-      - Telefonkönyv
-- Feladatspecifikáció
-- Pontosított feladatspecifikáció
-- A program kezelőfelülete
-- A program főbb funkciói
-   - 1, Bejegyzés hozzáadása
-   - 2, Bejegyzés törlése
-   - 3, Bejegyzés módosítása
-   - 4, Telefonkönyv megtekintése
-   - 5, Keresés
-   - 6, Kilépés
-- Futtatás
-- Megjegyzés
+**Telefonkönyv alkalmazás egyszerűsített objektummodelljének megvalósítása.**
 
+### Tárolt adatok:
 
-## Feladat
-
-#### Telefonkönyv
-
-```
-Tervezze meg egy telefonkönyv alkalmazás egyszerűsített objektummodelljét, majd
-valósítsa azt meg! A telefonkönyvben kezdetben az alábbi adatokat akarjuk tárolni,
-de később bővíteni akarunk:
-```
 - Név (vezetéknév, keresztnév)
-- becenév
-- munkahelyi szám
-- privát szám
-- város
-- előfizetés
+- Becenév
+- Munkahelyi szám
+- Privát szám
+- Város
+- Előfizetés (Ft)
 
-```
-Az alkalmazással minimum a következő műveleteket kívánjuk elvégezni:
-```
-- adatok felvétele
-- adatok törlése
-- listázás
+### Alapműveletek
 
-```
-A rendszer lehet bővebb funkcionalitású (pl. módosítás, keresés), ezért nagyon
-fontos, hogy jól határozza meg az objektumokat és azok felelősségét. Demonstrálja
-a működést külön modulként fordított tesztprogrammal! A megoldáshoz ne
-használjon STL tárolót!
-```
-## Feladatspecifikáció
+- 📥 Adatok felvétele
+- 🗑️ Adatok törlése
+- 📄 Listázás
 
-```
-A feladat egy telefonkönyv készítése. Az alkalmazásom parancssorban fog futni. A
-megoldásommal lehet adatokat felvenni/törölni, módosítani, listázni és keresni.
-```
-```
-A telefonkönyvem ’bejegyzései’ tartalmazni fognak nevet (keresztnév, vezetéknév, becenév)
-lakhely (város), munkahelyi és személyes telefonszámot, illetve előfizetés (Ft-ban).
-A felhasználó lépéseit, illetve a program főbb futási elemeit egy .log fájlban lesznek vezetve,
-illetve időbélyeggel ellátva.
-```
-```
-A teszteléshez olyan programot készítek, melyben a konzolos kezelői felület standard
-inputjáról érkező hibás bemeneteket is helyesen kezeli. Ezeket egyaránt jelzi a
-felhasználónak.
-```
-## Pontosított feladatspecifikáció
+> STL tárolók használata nem megengedett.
 
-```
-A feladat megoldását az alábbi osztályokkal valósítom meg:
-```
+---
 
-- **Ember** : Eltárolja a személyes adatokat az illetőről.
-- **Telefon** : A privát és a cégestelefon számokat tárolja
-- **Bejegyzes** : Eltárolja a körzetet (irányító szám), és a havi díját az előfizetőnek
-    (Ft)
-- **Telefonykonyv** : eltárolja az összes bejegyzést, illetve ő végzi a főbb
-    műveleteket (pld.: kiírás, bejegyzés hozzáadása a listához)
-- **UI** : A felhasználó felület működését szolgáltatja
+## 🛠️ Feladatspecifikáció
 
-A programom elindulásakor az adatbázisból (szöveges fájl) beolvassa a telefonkönyv
-szükséges adatait, és ezzel egyidejűleg kiíródik a konzolra a felhasználói felület. Ha hiányzik
-a fájl (source.txt) aprogram megpróbálja azt visszaépíteni (source_backup.txt), ha nem sikerül
-akkor leáll.
+Parancssoros alkalmazás, amely képes fájlból betölteni, logolni és kezelni bejegyzéseket:
 
-## Algoritmusok, függvények
+- Szöveges fájl: `source.txt`
+- Visszaállítás: `source_backup.txt`
+- Naplózás: `.log` fájl időbélyeggel
+- Hibás inputok kezelése
 
-1. A get- kezdetű függvények minden esetben visszaadják a rejtett változók értéket,
-    vagy állapotát
-2. A set- kezdetű függvényekkel lehet változtatni a privát tagváltozók értékeit
-3. bejegyzesKI függvény: kap egy int értéket (sorszám) és kiirja az adatit a console-ra.
+---
 
+## 📋 Pontosított feladatspecifikáció
 
-4. Telefonykönyv hozzáadó függvénye(addBejegyzes): Képes egy új bejegyzést
-    hozzáadni az adatbázishoz, mely a forrásfájlba is kiírásra kerül a program bezárta
-    után, a beérkező adatokat a UI class testeli
-5. kiir – Megépiti a kiiráshoz szükséges adatokkal a táblázatot
-6. feltoltesTelefonkonyv – Indításkor a fájlból felépíti a telefonkönyvet, ha nem sikerül
-    futtatja a hibajavító függvényet (factoryReset)
-7. bejTorles – kitörli a megadott sorszámú bejegyzést. Az intervallumot a UI class
-    teszteli
-8. modosit – Megkapja a sorszámot és egy bejegyzést majd ennek megfelelően
-    módosítja a már ott lévő bejegyzést
-9. factoryReset – Biztonsági algoritmus. Amennyiben hiba keletkezik az éterben, akkor
-    ez a függvény hívódik meg. Ha nincs source.txt, ez építi vissza, továbbá a test
-    futásában is fontos szerepe van.
-10. osszeBej - A rendezés miatt jött létre, gyakorlatilag megnézi, hogy melyik bejegyzes
-    van előrébb és melyiknek kellene
-11. rendez - Az osszeBej függvényt hívja meg, és az alapján eldönti, hogy helyes e az
-    eddig jelen lévő rendezés.
-12. Telefonkonyvkereses – vezetéknév alapján keresőfát épít (nyilván ezért is fontos a
-    rendez) és kikeresi a fából a vezetéknevet, amennyiben van.
-13. lin_keres – Egy egyszerű lineáris keresést alkalmazó függvény, a többi adat
-    kereséséhez.
-14. clearScreen – letörli a kijelzot
-15. header() – kiirja a fejlécet
-16. logo() – kiirja a logót, amennyiben a fájl létezik
-17. menu() – a menurendszer megvalósítása, gyakorlatilag ez a HUB
-18. bemenetCHECK – Ez egy ellenőrző függvény, vele lehet tesztelni a felhasználó által
-    biztosított adatok helyességét egy intervallumon
-19. bejegyzesBE – Akkor hívódik meg, ha a felhasználó új bejegyzést szeretne hozzáadni
-    a telefonkönyvhez, beépített ellenörzővel van ellátva
-20. bejegyzesKI – Bekér egy sorszámot, majd törli az adott bejegyzést a telefonkönyvből
-21. bejegyzesMOD – Bekér egy módosítandó sorszámot, majd egy Bejegyzés
-    létrehozásához szükséges adatokat, és lecseréli az ott lévő bejegyzésre
-22. kereses – A keresést megvalósító függvény
-23. log – Ez végzi a logolás folyamatát a log file-ba, segítségével nyomon követhetjük,
-    mit csinált a felhasználó.
-24. ido() – log file időbélyege
+### Osztályok
 
-## A program kezelőfelülete
+- **Ember** – név, becenév
+- **Telefon** – munkahelyi és privát szám
+- **Bejegyzes** – irányítószám, előfizetés
+- **Telefonszotar** – bejegyzések tárolása és műveletek
+- **UI** – felhasználói interfész, inputkezelés
 
-```
-A felhasználó az alábbi funkciók közül fog majd tudni választani:
-```
-**1. Bejegyzés hozzáadása
-2. Bejegyzés törlése
-3. Bejegyzés módosítása
-4. Bejegyzések listázása
-5. Keresés
-6. Kilépés**
+---
 
+## ⚙️ Algoritmusok és függvények
 
-## A program főbb funkciói
+Néhány fontosabb:
 
-### 1, Bejegyzés hozzáadása
+- `getX()`, `setX()`
+- `addBejegyzes()`, `bejTorles()`, `modosit()`
+- `feltoltesTelefonkonyv()`, `factoryReset()`
+- `osszeBej()`, `rendez()`
+- `Telefonkonyvkereses()`, `lin_keres()`
+- `clearScreen()`, `menu()`, `log()`, `ido()`
+- `bejegyzesBE()`, `bejegyzesKI()`, `bejegyzesMOD()`
+- `kereses()`
 
-```
-Ha a felhasználó az alábbi menüpontba lép, akkor lehetősége van hozzáadni saját
-bejegyzést, amennyiben a megfelelő adatokkal teszi azt.
-```
-### 2, Bejegyzés törlése
+---
 
-```
-Bekérünk egy sorszámot, és az ha megfelelő akkor az törlésre kerül az adatbázisból.
-```
-### 3, Bejegyzés módosítása
+## 🖥️ A program kezelőfelülete
 
-```
-Ebben a menüpontban lehetősége van a felhaználónak módosítani bizonyos
-bejegyzéseket.
-```
-### 4, Telefonkönyv megtekintése
+A felhasználó az alábbi menüpontokból választhat:
 
-```
-Ha a felhasználó az alábbi menüpontba lép, akkor gyakorlatilag ’kinyitja’ a
-telefonkönyvet. Kilistázódik az összes bejegyzés a könyvből.
-```
-### 5, Keresés
+1. Bejegyzés hozzáadása  
+2. Bejegyzés törlése  
+3. Bejegyzés módosítása  
+4. Bejegyzések listázása  
+5. Keresés  
+6. Kilépés
 
-```
-Ebben a menüpontban lefut a kereső algoritmusok összessége, ha van találat akkor azt
-a program egyértelműen jelzi a felhasználónak.
-```
-### 6, Kilépés
+---
 
-```
-A program kilép, és elmenti az adatokat.
-```
-## Futtatás
+## 🔧 A program főbb funkciói
 
-```
-A programot ajánlatos olyan terminában futtatni, amely támogatja az ékezeteket, illetve az
-ANSCII karaktereket. A program MacOS rendszeren lett írva és Warp terminálban lett
-futtatva.
-Az alábbi parancsot ajánlom a futtatáshoz:
-g++ - o program main.cpp cpp/*.cpp - DMEMTRACE - Wall - Werror
+### ➕ Bejegyzés hozzáadása
+Felhasználó által megadott új bejegyzés mentése.
+
+### ❌ Bejegyzés törlése
+Sorszám alapján történő bejegyzéstörlés.
+
+### ✏️ Bejegyzés módosítása
+Meglévő bejegyzés lecserélése új adatokkal.
+
+### 📄 Telefonkönyv megtekintése
+Összes bejegyzés listázása a képernyőn.
+
+### 🔍 Keresés
+Vezetéknév vagy más adat alapján keresés.
+
+### 🚪 Kilépés
+Adatok mentése, program kilépése.
+
+---
+
+## 🚀 Futtatás
+
+### 💻 Ajánlott környezet
+
+- Ékezeteket támogató terminál
+- ASCII karaktermegjelenítés
+
+### 🔧 Parancs
+
+```bash
+g++ -o program main.cpp cpp/*.cpp -DMEMTRACE -Wall -Werror
+./program
 ```
 
+---
 
+## 💬 Megjegyzés
 
+Ez a házi feladat célja, hogy gyakorlatban is alkalmazza az objektumorientált tervezést, fájlkezelést, hibakezelést és a modularizált programozást — STL nélkül.
 
+---
+
+**Készítette: RobiiHUN · 📆 2024.05.18 · ❤️ C++**
